@@ -10,23 +10,26 @@ var surveyOptions = React.createClass({
       marginBottom: 16
     };
   },
+  getValue: function() {
+    return this.refs.button.getSelectedValue();
+  },
   render: function() {
     return (
-        <RadioButtonGroup name={this.props.name} defaultSelected="q1">
+        <RadioButtonGroup ref="button" name={this.props.name} defaultSelected="1.25">
         <RadioButton
-          value="q1"
+          value="1.25"
           label={this.props.q1Label}
           style={{marginBottom: this.props.marginBottom}} />
         <RadioButton
-          value="q2"
+          value="2.50"
           label={this.props.q2Label}
           style={{marginBottom: this.props.marginBottom}}/>
         <RadioButton
-          value="q3"
+          value="3.75"
           label={this.props.q3Label}
           style={{marginBottom: this.props.marginBottom}}/>
         <RadioButton
-          value="q4"
+          value="5.00"
           label={this.props.q4Label}
           style={{marginBottom: this.props.marginBottom}}/>
         </RadioButtonGroup>

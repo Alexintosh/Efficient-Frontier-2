@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var _ = require('underscore');
 var Dialog = require('material-ui/lib/dialog');
 var FlatButton = require('material-ui/lib/flat-button');
 var SurveyOptions = require('./surveyOptions.jsx');
@@ -19,6 +20,18 @@ var Survey = React.createClass({
   hideSurvey: function() {
     this.refs.hello.dismiss();
   },
+  getResults: function() {
+    var results = [];
+    //push each survey question into results and return it
+    _.each(this.refs, function(el, ref) {
+      if (ref.slice(0, 1) === 'q') {
+        results.push(el.getValue());
+      }
+    }.bind(this));
+
+    this.hideSurvey()
+    return results;
+  },
   render:function() {
     var customActions = [
       <FlatButton
@@ -29,7 +42,7 @@ var Survey = React.createClass({
       <FlatButton
         label="Submit"
         primary={true}
-        onTouchTap={this._handleCustomDialogSubmit} 
+        onTouchTap={this.getResults} 
         key={1} />
     ];
     return (
@@ -39,7 +52,8 @@ var Survey = React.createClass({
             <div style={{height: '2000px'}}>
 
               <h3>{Headings['Question1']}</h3>
-              <SurveyOptions 
+              <SurveyOptions
+              ref="q1"
               name="Question1"
               q1Label="Money market accounts."
               q2Label="Government savings bonds."
@@ -48,6 +62,7 @@ var Survey = React.createClass({
 
               <h3>{Headings['Question2']}</h3>
               <SurveyOptions 
+              ref="q2"
               name="Question2"
               q1Label="Worried."
               q2Label="Satisfied."
@@ -56,23 +71,26 @@ var Survey = React.createClass({
 
               <h3>{Headings['Question3']}</h3>
               <SurveyOptions 
-              name="Question2"
+              ref="q3"
+              name="Question3"
               q1Label="$21,000 – $19,000."
               q2Label="$23,000 – $17,000."
               q3Label="$27,000 – $13,000."
               q4Label="$27,000 – $13,000."/>
 
               <h3>{Headings['Question4']}</h3>
-              <SurveyOptions 
-              name="Question2"
+              <SurveyOptions
+              ref="q4" 
+              name="Question4"
               q1Label="Sell all of the investment."
               q2Label="Sell a portion of the investment."
               q3Label="Nothing."
               q4Label="Buy more of the same investment."/>
 
               <h3>{Headings['Question5']}</h3>
-              <SurveyOptions 
-              name="Question2"
+              <SurveyOptions
+              ref="q5"
+              name="Question5"
               q1Label="Proceed with caution--take no unnecessary risks."
               q2Label="Take small, measurable risks and patiently pursue your dreams"
               q3Label="Prepare well, but follow your goals without fear."
