@@ -22,11 +22,11 @@ var sendToServer = {
 
 
 Server side
-1. Get user obj
-2. Check ticker against db
-  a. if there, return correlation
-  b. if not, compute save & return
-3. Compute metrics of this format
+1. Get user obj - DONE
+2. Check ticker against db - DONE
+  a. if there, return correlation - DONE
+  b. if not, compute save & return - DONE
+3. Compute metrics of this format - DONE
 
 {
   riskyAsset: Number,
@@ -40,5 +40,5 @@ Server side
   fractionOfWealth: Number
 }
 
-4. Send this object as the response
+4. Send this object as the response - DONE
 

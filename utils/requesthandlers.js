@@ -62,7 +62,7 @@ exports.computePortfolio = function(riskAversion, correlation, fractionOfWealth)
   var portfolio = {};
 
   portfolio['riskAversion'] = riskAversion;
-  portfolio['correlation'] = correlation;
+  portfolio['correlation'] = +correlation.toFixed(4);
   portfolio['fractionOfWealth'] = fractionOfWealth;
   portfolio['riskyAsset'] = formulas.riskyAsset(riskAversion, correlation, fractionOfWealth);
   portfolio['bond'] = formulas.bond(riskAversion, correlation, fractionOfWealth);
