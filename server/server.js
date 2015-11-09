@@ -18,8 +18,9 @@ app.get('/', function(req, res){
 
 app.post('/portfolio', function(req, res){
   var user = req.body[0];
-  requestHandlers.handleTicker(user).then(function(correlation) {
-    console.log(correlation);
+  requestHandlers.handleRequest(user).then(function(portfolio) {
+    console.log(portfolio);
+    res.send(portfolio);
   })
   .catch(function(err) {
     console.log(err);

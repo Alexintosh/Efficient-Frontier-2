@@ -5,6 +5,7 @@ var db = require('../db/config.js');
 var Stock = require('../db/stocks.js');
 var helpers = require('./helpers');
 var Promise = require('bluebird');
+var formulas = require('./formulas');
 
 exports.handleTicker = function(user) {
   var ticker = user.ticker;
@@ -52,6 +53,44 @@ exports.handleTicker = function(user) {
         });
       }
     });
+  });
+
+  return promise;
+};
+
+exports.computePortfolio = function(riskAversion, correlation, fractionOfWealth) {
+  var portfolio = {};
+
+  portfolio['riskAversion'] = riskAversion;
+  portfolio['correlation'] = correlation;
+  portfolio['fractionOfWealth'] = fractionOfWealth;
+  portfolio['riskyAsset'] = formulas.riskyAsset(riskAversion, correlation, fractionOfWealth);
+  portfolio['bond'] = formulas.bond(riskAversion, correlation, fractionOfWealth);
+  portfolio['financialMean'] = formulas.financialMean(riskAversion, correlation, fractionOfWealth);
+  portfolio['financialSD'] = formulas.financialSD(riskAversion, correlation, fractionOfWealth);
+  portfolio['totalWealthMean'] = formulas.totalWealthMean(riskAversion, correlation, fractionOfWealth);
+  portfolio['totalWealthSD'] = formulas.totalWealthSD(riskAversion, correlation, fractionOfWealth);
+
+  return portfolio;
+};
+
+exports.handleRequest = function(user) {
+  var promise = new Promise(function(resolve, reject) {
+    //get the user correlation from their ticker
+    // console.log(user);
+    exports.handleTicker(user).then(function(correlation) {
+      var riskAversion = formulas.computeRiskAversion(user.surveyResults);
+      var fractionOfWealth = user.fractionOfWealth;
+      return exports.computePortfolio(riskAversion, correlation, fractionOfWealth);
+    })
+    .then(function(portfolio) {
+      //send portfolio back to client
+      resolve(portfolio);
+    })
+    .catch(function(err) {
+      reject(err);
+    });
+
   });
 
   return promise;
