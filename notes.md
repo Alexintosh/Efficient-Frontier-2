@@ -1,8 +1,8 @@
 USER EXPERIENCE
 
-1. Visit App
-2. Click button to open risk survey
-  a. Fill out risk survey (5 q's)
+1. Visit App - DONE
+2. Click button to open risk survey - DONE
+  a. Fill out risk survey (5 q's) - DONE
   b. On Submit, add each answer to the user object stored on the client
 3. Show input with investment % question & text explaining
   a. on submit, add to user object
