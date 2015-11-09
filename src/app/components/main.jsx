@@ -9,6 +9,9 @@ var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme')
 var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button');
 var InputField = require('./inputField.jsx');
+var Promise = require('bluebird');
+
+var Portfolio = require('./portfolio.jsx');
 
 /*-----------USER OBJ---------*/
 var user = {
@@ -26,6 +29,7 @@ var Main = React.createClass({
       showRiskSurvey: true,
       showWealthSplit: false,
       showTickerInput: false,
+      showPortfolio: false
     };
   },
   showDialog: function() {
@@ -43,7 +47,7 @@ var Main = React.createClass({
     });
   },
   handleSplit: function(value) {
-    user.fractionOfWealth = value;
+    user.fractionOfWealth = +value;
     this.setState({
       showWealthSplit: false,
       showTickerInput: true
@@ -52,16 +56,11 @@ var Main = React.createClass({
   handleTickerSubmit: function(value) {
     user.ticker = value;
     this.setState({
-      showTickerInput: false
+      showTickerInput: false,
+      showPortfolio: true
     });
-
-    this.requestPorfolio(user);
   },
-
-  requestPorfolio: function() {
-    
-  },
-  componentWillMount: function() {
+  componentDidMount: function() {
     window.addEventListener('endSurvey', function(e) {
       this.handleSurvey(e.detail);
     }.bind(this));
@@ -78,12 +77,14 @@ var Main = React.createClass({
     var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" label="Default" onTouchTap={this.showDialog} /> : null;
     var wealthSplit = this.state.showWealthSplit ? <InputField hintText="Enter %" eventName="endSplit" /> : null;
     var tickerInput = this.state.showTickerInput ? <InputField hintText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
+    var portfolio = this.state.showPortfolio ? <Portfolio user= {user} /> : null;
     return (
       <div>
         <Survey ref="riskSurvey"/>
         {riskSurvey}
         {wealthSplit}
         {tickerInput}
+        {portfolio}
       </div>
       );
   }

@@ -17,9 +17,9 @@ app.get('/', function(req, res){
 });
 
 app.post('/portfolio', function(req, res){
-  var user = req.body[0];
+  console.log(req.body);
+  var user = req.body;
   requestHandlers.handleRequest(user).then(function(portfolio) {
-    console.log(portfolio);
     res.send(portfolio);
   })
   .catch(function(err) {
