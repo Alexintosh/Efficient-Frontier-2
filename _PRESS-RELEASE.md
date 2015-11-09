@@ -19,26 +19,40 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
+  This is a tool that tells you how you should invest your money based on what company you work.
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+
+  This tool is for anyone who wants to achieve an optimal financial porfolio, works at a publicly traded company, and is interest in modern portfolio theory as an invesment methodology.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
+  This tool will compute a user's risk tolerance, correlation of income risk with the market, and will return the optimal financial porfolio based on those factors.
+
 ## Problem ##
   > Describe the problem your product solves.
+  The problem is that most financial diversification formulas do not account for outside income effects.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
+  This product solves the problem by using Yahoo's finance API to compute a company's correlation with the market.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+  "Figure out how much you should invest in 3 steps."
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
+  Step 1. Take a quiz.
+  Step 2. Enter the company you work for.
+  Step 3. Get your optimal portfolio.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "It took me 30 seconds to see how I should invest my money".
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+  Check it out on github.
