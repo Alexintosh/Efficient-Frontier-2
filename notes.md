@@ -3,7 +3,7 @@ USER EXPERIENCE
 1. Visit App - DONE
 2. Click button to open risk survey - DONE
   a. Fill out risk survey (5 q's) - DONE
-  b. On Submit, add each answer to the user object stored on the client
+  b. On Submit, add each answer to the user object stored on the client - DONE
 3. Show input with investment % question & text explaining
   a. on submit, add to user object
 4. Change text with new input asking for company ticker
