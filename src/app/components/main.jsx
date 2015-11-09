@@ -8,6 +8,13 @@ var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme')
 var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button')
 
+/*-----------USER OBJ---------*/
+var user = {
+  surveyResults: [],
+  fractionOfWealth: 0,
+  ticker: ''
+};
+
 /*-----------CUSTOM---------*/
 var Survey = require('./survey.jsx');
 

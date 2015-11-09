@@ -21,6 +21,20 @@ var sendToServer = {
   b. If time, explainations on MPT
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<-------------DONE-------------->
 Server side
 1. Get user obj - DONE
 2. Check ticker against db - DONE
