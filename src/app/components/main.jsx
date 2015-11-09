@@ -20,15 +20,23 @@ var user = {
 var Survey = require('./survey.jsx');
 
 var Main = React.createClass({
+  getInitialState: function() {
+    return {
+      removeRiskSurvey: false
+    };
+  },
   showDialog: function() {
     this.refs.riskSurvey.showSurvey();
   },
   handleSurvey: function(results) {
+    //map from strings to numbers
     user.surveyResults = _.map(results, function(el) {
       return +el;
     });
 
-    console.log(user.surveyResults);
+    this.setState({
+      removeRiskSurvey: true
+    });
   },
   componentWillMount: function() {
     window.addEventListener('endSurvey', function(e) {
@@ -36,10 +44,11 @@ var Main = React.createClass({
     }.bind(this));
   },
   render:function() {
+    var riskSurvey = this.state.removeRiskSurvey ? null : <RaisedButton ref="risk-button" label="Default" onTouchTap={this.showDialog} />;
     return (
       <div>
         <Survey ref="riskSurvey"/>
-        <RaisedButton label="Default" onTouchTap={this.showDialog}/>
+        {riskSurvey}
       </div>
       );
   }

@@ -29,10 +29,10 @@ var Survey = React.createClass({
       }
     }.bind(this));
 
+    this.hideSurvey();
+
     var event = new CustomEvent('endSurvey', {'detail': results});
     window.dispatchEvent(event);
-
-    this.hideSurvey();
   },
   render:function() {
     var customActions = [
