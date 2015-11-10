@@ -21,16 +21,18 @@ var IconButton = require('material-ui/lib/icon-button');
 var DescriptionIcon = require('material-ui/lib/svg-icons/action/description');
 var $ = require('jquery');
 
+var Description = require('./description.jsx');
+
 var MetricDescriptions = {
-  "riskyAsset": "Number",
-  "bond": "Number",
-  "financialMean": "Number",
-  "financialStd": "Number",
-  "totalWealthMean": "Number",
-  "totalWealthSD": "Number",
-  "riskAversion": "Number",
-  "correlation": "Number",
-  "fractionOfWealth": "Number"
+  "riskyAsset": "Stock Allocation",
+  "bond": "Bond Allocation",
+  "financialMean": "Financial Portfolio μ",
+  "financialSD": "Financial Portfolio σ",
+  "totalWealthMean": "Total Wealth Portfolio μ",
+  "totalWealthSD": "Total Wealth Portfolio σ",
+  "riskAversion": "Risk Aversion (1 - 5)",
+  "correlation": "Correlation of X to Market",
+  "fractionOfWealth": "% of Wealth in Financial Assets"
 };
 
 
@@ -65,8 +67,16 @@ var PortfolioView = React.createClass({
   },
   handleDescription: function(metric) {
 
-    this.refs.info.show();
+    this.refs.info.updateContent(metric);
+    this.refs.info.showDescription();
+
     console.log(MetricDescriptions[metric]);
+  },
+  handleFormat: function(value, metric) {
+    if (metric === 'riskAversion') {
+      return value;
+    }
+    return Math.round(100 * value.toFixed(2)) + '%';
   },
 
   render: function() {
@@ -75,19 +85,22 @@ var PortfolioView = React.createClass({
     var gridTiles = _.map(this.state.user, function(value, metric) {
       return (
         <GridTile
+        className="tile"
+        title = ""
         key={++id}
-        title={metric}
-        actionIcon={<IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="white"/></IconButton>}
+        // actionIcon={<IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton>}
         >
-          <span className="metric">{value}</span>
+          <div className="gridTitle">{MetricDescriptions[metric]}</div>
+          <div className="iconInfo"><IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton></div>
+          <span className="metric">{self.handleFormat(value, metric)}</span>
         </GridTile>
         );
     });
     var user = this.state.user ? gridTiles : null;
     return (
       <div>
-        <Dialog ref="info"></Dialog>
-        <GridList cols={3} cellHeight={300} style={{width: 600, height: 600, overflowY: 'auto'}} >
+        <Description ref="info" />
+        <GridList cols={3} cellHeight={300} style={{width: 1000, height: 1000, overflowY: 'auto'}} >
           {user}
         </GridList>
       </div>
