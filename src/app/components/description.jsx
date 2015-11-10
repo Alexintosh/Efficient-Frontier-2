@@ -72,9 +72,22 @@ var Description = React.createClass({
       description: MetricDescriptions[metric].content
     });
   },
+  hideModal: function() {
+    this.refs.info.dismiss();
+  },
   render: function() {
     return (
-      <Dialog title={this.state.title} ref="info">{this.state.description}</Dialog>
+      <Dialog title={this.state.title}
+        ref="info"
+        autoDetectWindowHeight={true}
+        autoScrollBodyContent={true}
+        actions={[<FlatButton
+          label="Okay"
+          secondary={true}
+          onTouchTap={this.hideModal} />]}
+        >
+        {this.state.description}
+      </Dialog>
       );
   }
 });

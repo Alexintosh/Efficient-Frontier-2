@@ -88,11 +88,10 @@ var PortfolioView = React.createClass({
         className="tile"
         title = ""
         key={++id}
-        // actionIcon={<IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton>}
         >
           <div className="gridTitle">{MetricDescriptions[metric]}</div>
           <div className="iconInfo"><IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton></div>
-          <span className="metric">{self.handleFormat(value, metric)}</span>
+          <span className="metric animated flipInX">{self.handleFormat(value, metric)}</span>
         </GridTile>
         );
     });
