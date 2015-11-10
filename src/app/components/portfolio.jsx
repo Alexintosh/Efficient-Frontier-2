@@ -66,7 +66,6 @@ var PortfolioView = React.createClass({
       contentType: 'application/json',
       data: JSON.stringify(userData),
       success: function(user) {
-        console.log(user);
 
         if (self.isMounted()) {
           self.setState({
@@ -95,6 +94,7 @@ var PortfolioView = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.graphData);
     var self = this;
     var id = -1;
     var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
@@ -111,11 +111,23 @@ var PortfolioView = React.createClass({
         );
     });
     var user = this.state.user ? gridTiles : null;
+    var financialPortfolio = this.state.graphData ? this.state.graphData.financialPortfolio.mean : null;
+    var wealthPortfolio = this.state.graphData ? this.state.graphData.totalWealthPortfolio.mean : null;
+    var highestUtility = this.state.graphData ? (_.map(this.state.graphData.utilityCurve.mean, function(el, i) {
+      if (i === 0) {
+        return el;
+      } else if(i % 10 === 0) {
+        return el;
+      }
+    })) : null;
     return (
       <div className="investmentView">
       <div id="chart">
         <h1>Your Optimal Financial Portfolio</h1>
-        <Graph />
+        {this.state.graphData ? <Graph 
+        financialPortfolio={financialPortfolio}
+        totalWealthPortfolio={wealthPortfolio}
+        highestUtility={highestUtility}/> : null}
       </div>
 
         <div className="porfolioGrid">

@@ -13,8 +13,7 @@ var config = {
         x: -20
     },
     xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        tickInterval: 0.1,
         title: {
             text: 'Standard Deviation'
         }
@@ -39,13 +38,13 @@ var config = {
         borderWidth: 0
     },
     series: [{
-        name: 'Tokyo',
+        name: 'Financial Portfolio',
         data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
     }, {
-        name: 'New York',
+        name: 'Total Wealth Portfolio',
         data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
     }, {
-        name: 'Berlin',
+        name: 'Highest Acheiveable Utility',
         data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
     }, {
         name: 'London',
@@ -257,9 +256,61 @@ Highcharts.Highcharts.setOptions(theme);
 
 
 var Graph = React.createClass({
+  getInitialState: function() {
+    return {  
+      config: {
+        title: {
+            text: 'Investment Opportunities, Optimal Portfolios and Utility Curves',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'subtitle',
+            x: -20
+        },
+        xAxis: {
+            tickInterval: 0.1,
+            title: {
+                text: 'Standard Deviation'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Expected Return'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Financial Portfolio',
+            data: this.props.financialPortfolio
+        }, {
+            name: 'Total Wealth Portfolio',
+            data: this.props.totalWealthPortfolio
+        }, {
+            name: 'Highest Acheiveable Utility',
+            data: this.props.highestUtility
+        }]
+      }
+    };
+  },
+  componentDidMount: function() {
+    console.log(this.props);
+  },
   render: function() {
     return (
-      <Highcharts ref="chart" config={config}></Highcharts>
+      <Highcharts ref="chart" config={this.state.config}></Highcharts>
       );
   }
 });
