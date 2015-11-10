@@ -22,6 +22,7 @@ var InputField = React.createClass({
         <h2>{this.props.title}</h2>
         <TextField
           ref="input"
+          fullWidth={true}
           hintText={this.props.hintText}
           onEnterKeyDown={this.handleSubmit} />
       </div>

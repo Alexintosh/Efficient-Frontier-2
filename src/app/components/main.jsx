@@ -29,7 +29,9 @@ var Main = React.createClass({
       showRiskSurvey: true,
       showWealthSplit: false,
       showTickerInput: false,
-      showPortfolio: false
+      showPortfolio: false,
+      heading: 'Calculate Your Financial Portfolio',
+      subHeading: 'In just three steps, this tool will calculate your Optimal Portfolio according to Modern Portfolio Theory standards. Click the button to get started!',
     };
   },
   showDialog: function() {
@@ -43,21 +45,27 @@ var Main = React.createClass({
 
     this.setState({
       showRiskSurvey: false,
-      showWealthSplit: true
+      showWealthSplit: true,
+      heading: 'How much of your money are you planning to invest?',
+      subHeading: 'Cool, just two more questions to go. Please estimate how much of your money you will be investing and hit enter when you\'re done.'
     });
   },
   handleSplit: function(value) {
     user.fractionOfWealth = +value;
     this.setState({
       showWealthSplit: false,
-      showTickerInput: true
+      showTickerInput: true,
+      heading: 'What company do you work for?',
+      subHeading: 'Great! Last question, we need to know what company you work for. Please enter the ticker for a publically traded company in the field below and hit enter when you\'re done.'
     });
   },
   handleTickerSubmit: function(value) {
     user.ticker = value;
     this.setState({
       showTickerInput: false,
-      showPortfolio: true
+      showPortfolio: true,
+      heading: '',
+      subHeading: ''
     });
   },
   componentDidMount: function() {
@@ -80,8 +88,8 @@ var Main = React.createClass({
     var portfolio = this.state.showPortfolio ? <Portfolio user= {user} /> : null;
     return (
       <div className="main">
-        <h1>Calculate Your Financial Portfolio</h1>
-        <h3>In just three steps, this tool will calculate your Optimal Portfolio according to Modern Portfolio Theory standards. Click the button to get started! </h3>
+        <h1>{this.state.heading}</h1>
+        <h3>{this.state.subHeading}</h3>
         <Survey ref="riskSurvey"/>
         {riskSurvey}
         {wealthSplit}
