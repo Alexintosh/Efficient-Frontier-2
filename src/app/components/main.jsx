@@ -87,13 +87,17 @@ var Main = React.createClass({
     var tickerInput = this.state.showTickerInput ? <InputField numberField={false} uppercase={true} floatingLabelText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
     var portfolio = this.state.showPortfolio ? <Portfolio heading={this.state.heading} ticker={user.ticker} user= {user} /> : null;
     return (
-      <div className="main">
+      <div className="app">
+      
+        <div className="main">
         <h1>{this.state.heading}</h1>
         <h3>{this.state.subHeading}</h3>
         <Survey ref="riskSurvey"/>
         {riskSurvey}
         {wealthSplit}
         {tickerInput}
+        </div>
+
         {portfolio}
       </div>
       );
