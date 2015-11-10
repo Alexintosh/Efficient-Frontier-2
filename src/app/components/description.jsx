@@ -84,7 +84,8 @@ var Description = React.createClass({
         actions={[<FlatButton
           label="Okay"
           secondary={true}
-          onTouchTap={this.hideModal} />]}
+          onTouchTap={this.hideModal}
+          key={0} />]}
         >
         {this.state.description}
       </Dialog>
