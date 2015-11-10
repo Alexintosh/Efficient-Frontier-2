@@ -8,13 +8,6 @@ var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button');
-// var Table = require('material-ui/lib/table/table');
-// var TableFooter = require('material-ui/lib/table/table-footer');
-// var TableBody = require('material-ui/lib/table/table-body');
-// var TableRow = require('material-ui/lib/table/table-row');
-// var TableRowColumn = require('material-ui/lib/table/table-row-column');
-// var TableHeader = require('material-ui/lib/table/table-header');
-// var TableHeaderColumn = require('material-ui/lib/table/table-header-column');
 var GridList = require('material-ui/lib/grid-list/grid-list');
 var GridTile = require('material-ui/lib/grid-list/grid-tile');
 var IconButton = require('material-ui/lib/icon-button');
@@ -23,18 +16,6 @@ var $ = require('jquery');
 
 var Description = require('./description.jsx');
 var Graph = require('./graph.jsx');
-
-// var MetricDescriptions = {
-//   "riskyAsset": "Stock Allocation",
-//   "bond": "Bond Allocation",
-//   "financialMean": "Financial Portfolio μ",
-//   "financialSD": "Financial Portfolio σ",
-//   "totalWealthMean": "Total Wealth Portfolio μ",
-//   "totalWealthSD": "Total Wealth Portfolio σ",
-//   "riskAversion": "Risk Aversion (1 - 5)",
-//   "correlation": "Correlation of X to Market",
-//   "fractionOfWealth": "% of Wealth in Financial Assets"
-// };
 
 
 
@@ -94,7 +75,6 @@ var PortfolioView = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.graphData);
     var self = this;
     var id = -1;
     var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
@@ -120,6 +100,7 @@ var PortfolioView = React.createClass({
         return el;
       }
     })) : null;
+    console.log(highestUtility);
     return (
       <div className="investmentView">
       <div id="chart">

@@ -54,8 +54,8 @@ var Description = React.createClass({
           title: "Correlation of " + this.props.ticker + " to Market",
           content: lorem
         },
-        "fractionOfWealth": {
-          title: "% of Wealth in Financial Assets",
+        "maxUtility": {
+          title: "Maximum Achieveable Utility",
           content: lorem
         }
       }
