@@ -232,9 +232,30 @@ var calculateUtiltyCurve = function() {
   }
 };
 
+
+/*------------------------------ MAP DATA FOR D3 ------------------------------------------------*/
+var mapDataForD3 = function() {
+
+  //Map portfolio data to the format: [ {mean: value, stdDev: value}, { .., .. }, .. ]
+  var mapData = function(obj) {
+    var mappedObj = obj.stdDev.map(function(element) {
+      return [element];
+    });
+    mappedObj.forEach(function(element, i) {
+      element[1] = obj.mean[i];
+    });
+    return mappedObj;
+  };
+
+  financialPortfolioData = mapData(financialPortfolio);
+  totalWealthPortfolioData = mapData(totalWealthPortfolio);
+  utilityCurveData = mapData(utilityCurve);
+};
+
 calculatePortfolios();
 calculateWeights();
 calculateUtiltyCurve();
+mapDataForD3();
 
 var user = {
   OI: {}
@@ -252,36 +273,15 @@ user.OI['totalWealthSD'] = optimalWeights.OI.totalWealthStdDev;
 user.OI['maxUtility'] = optimalWeights.OI.maxUtility;
 
 user['graphData'] = {
-  financialPortfolio: financialPortfolio,
-  totalWealthPortfolio: totalWealthPortfolio,
-  utilityCurve: utilityCurve
+  financialPortfolio: financialPortfolioData,
+  totalWealthPortfolio: totalWealthPortfolioData,
+  utilityCurve: utilityCurveData
 };
 
 return user;
 
 };
 
-
-// /*------------------------------ MAP DATA FOR D3 ------------------------------------------------*/
-// var mapDataForD3 = function() {
-
-//   //Map portfolio data to the format: [ {mean: value, stdDev: value}, { .., .. }, .. ]
-//   var mapData = function(obj) {
-//     var mappedObj = obj.mean.map(function(element) {
-//       return {
-//         "mean": element
-//       };
-//     });
-//     mappedObj.forEach(function(element, i) {
-//       element["stdDev"] = obj.stdDev[i];
-//     });
-//     return mappedObj;
-//   };
-
-//   financialPortfolioData = mapData(financialPortfolio);
-//   totalWealthPortfolioData = mapData(totalWealthPortfolio);
-//   utilityCurveData = mapData(utilityCurve);
-// };
 
 
 

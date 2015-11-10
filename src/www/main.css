@@ -76,3 +76,15 @@ div.iconInfo:hover {
 #chart h1 {
   margin-bottom: 30px;
 }
+
+g.highcharts-series-3 path.highcharts-tracker {
+  height: 100px;
+  width: 100px;
+  stroke: orange;
+  stroke-width: 20px;
+}
+
+g.highcharts-legend g.highcharts-legend-item:last-of-type {
+ stroke: orange;
+ stroke-width: 1px; 
+}

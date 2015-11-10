@@ -77,6 +77,7 @@ var PortfolioView = React.createClass({
   render: function() {
     var self = this;
     var id = -1;
+    console.log(this.state.graphData);
     var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
       return (
         <GridTile
@@ -91,21 +92,21 @@ var PortfolioView = React.createClass({
         );
     });
     var user = this.state.user ? gridTiles : null;
-    var financialPortfolio = this.state.graphData ? this.state.graphData.financialPortfolio.mean : null;
-    var wealthPortfolio = this.state.graphData ? this.state.graphData.totalWealthPortfolio.mean : null;
-    var highestUtility = this.state.graphData ? (_.map(this.state.graphData.utilityCurve.mean, function(el, i) {
+    var financialPortfolio = this.state.graphData ? this.state.graphData.financialPortfolio : null;
+    var wealthPortfolio = this.state.graphData ? this.state.graphData.totalWealthPortfolio : null;
+    var highestUtility = this.state.graphData ? (_.map(this.state.graphData.utilityCurve, function(el, i) {
       if (i === 0) {
         return el;
       } else if(i % 10 === 0) {
         return el;
       }
     })) : null;
-    console.log(highestUtility);
     return (
       <div className="investmentView">
       <div id="chart">
         <h1>Your Optimal Financial Portfolio</h1>
-        {this.state.graphData ? <Graph 
+        {this.state.graphData && this.state.userMetrics ? <Graph 
+        OptimalPortfolio={[ [ this.state.userMetrics['totalWealthSD'] , this.state.userMetrics['totalWealthMean'] ] ]}
         financialPortfolio={financialPortfolio}
         totalWealthPortfolio={wealthPortfolio}
         highestUtility={highestUtility}/> : null}
