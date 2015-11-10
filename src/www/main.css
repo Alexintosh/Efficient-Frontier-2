@@ -67,3 +67,12 @@ div.iconInfo:hover {
   cursor: pointer;
 }
 
+#chart {
+  margin-bottom: 70px;
+  height: 400px;
+  width: 1000px;
+}
+
+#chart h1 {
+  margin-bottom: 30px;
+}

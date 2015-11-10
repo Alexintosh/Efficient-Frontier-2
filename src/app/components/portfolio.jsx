@@ -108,14 +108,16 @@ var PortfolioView = React.createClass({
     var user = this.state.user ? gridTiles : null;
     return (
       <div className="investmentView">
+      <div id="chart">
+        <h1>Your Optimal Financial Portfolio</h1>
+        <Graph />
+      </div>
+
         <div className="porfolioGrid">
           <Description ticker={this.props.ticker} ref="info" />
           <GridList cols={3} cellHeight={300} style={{width: 1000, height: 1000, overflowY: 'auto'}} >
             {user}
           </GridList>
-        </div>
-        <div id="chart">
-          <Graph />
         </div>
       </div>
     );

@@ -64,7 +64,7 @@ var Main = React.createClass({
     this.setState({
       showTickerInput: false,
       showPortfolio: true,
-      heading: 'Your Optimal Financial Portfolio',
+      heading: '',
       subHeading: ''
     });
   },
@@ -85,7 +85,7 @@ var Main = React.createClass({
     var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" fullWidth={true} label="Start" onTouchTap={this.showDialog} /> : null;
     var wealthSplit = this.state.showWealthSplit ? <InputField validate={true} floatingLabelText="Enter a Percentage" eventName="endSplit" /> : null;
     var tickerInput = this.state.showTickerInput ? <InputField numberField={false} uppercase={true} floatingLabelText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
-    var portfolio = this.state.showPortfolio ? <Portfolio ticker={user.ticker} user= {user} /> : null;
+    var portfolio = this.state.showPortfolio ? <Portfolio heading={this.state.heading} ticker={user.ticker} user= {user} /> : null;
     return (
       <div className="main">
         <h1>{this.state.heading}</h1>
