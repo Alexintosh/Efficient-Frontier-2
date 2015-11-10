@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var RaisedButton = require('material-ui/lib/raised-button');
+var Dialog = require('material-ui/lib/dialog');
 var TextField = require('material-ui/lib/text-field');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
@@ -19,6 +20,20 @@ var GridTile = require('material-ui/lib/grid-list/grid-tile');
 var IconButton = require('material-ui/lib/icon-button');
 var DescriptionIcon = require('material-ui/lib/svg-icons/action/description');
 var $ = require('jquery');
+
+var MetricDescriptions = {
+  "riskyAsset": "Number",
+  "bond": "Number",
+  "financialMean": "Number",
+  "financialStd": "Number",
+  "totalWealthMean": "Number",
+  "totalWealthSD": "Number",
+  "riskAversion": "Number",
+  "correlation": "Number",
+  "fractionOfWealth": "Number"
+};
+
+
 
 var PortfolioView = React.createClass({
   getInitialState: function() {
@@ -48,23 +63,32 @@ var PortfolioView = React.createClass({
       }
     });
   },
+  handleDescription: function(metric) {
+
+    this.refs.info.show();
+    console.log(MetricDescriptions[metric]);
+  },
 
   render: function() {
+    var self = this;
     var gridTiles = _.map(this.state.user, function(value, metric) {
       return (
-        <GridTile title={metric} 
-        actionIcon={<IconButton><DescriptionIcon color="white"/></IconButton>} >
+        <GridTile
+        title={metric}
+        actionIcon={<IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="white"/></IconButton>}
+        >
           <span className="metric">{value}</span>
         </GridTile>
         );
     });
     var user = this.state.user ? gridTiles : null;
-
     return (
-
-      <GridList cols={3} cellHeight={300} style={{width: 600, height: 600, overflowY: 'auto'}} >
-        {user}
-      </GridList>
+      <div>
+        <Dialog ref="info"></Dialog>
+        <GridList cols={3} cellHeight={300} style={{width: 600, height: 600, overflowY: 'auto'}} >
+          {user}
+        </GridList>
+      </div>
     );
   }
 });
