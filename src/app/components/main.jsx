@@ -83,8 +83,8 @@ var Main = React.createClass({
   },
   render:function() {
     var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" fullWidth={true} label="Start" onTouchTap={this.showDialog} /> : null;
-    var wealthSplit = this.state.showWealthSplit ? <InputField floatingLabelText="Enter a Percentage" eventName="endSplit" /> : null;
-    var tickerInput = this.state.showTickerInput ? <InputField hintText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
+    var wealthSplit = this.state.showWealthSplit ? <InputField validate={true} floatingLabelText="Enter a Percentage" eventName="endSplit" /> : null;
+    var tickerInput = this.state.showTickerInput ? <InputField uppercase={true} hintText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
     var portfolio = this.state.showPortfolio ? <Portfolio user= {user} /> : null;
     return (
       <div className="main">

@@ -43,6 +43,10 @@ var InputField = React.createClass({
 
     this.setState({addAnimation: false});
   },
+  handleCaps: function(e) {
+    var val = e.target.value;
+    this.refs.input.setValue(val.toUpperCase());
+  },
   render: function() {
     return (
       <div className={this.state.addAnimation ? 'animated shake' : ''}>
@@ -51,8 +55,8 @@ var InputField = React.createClass({
           ref="input"
           fullWidth={true}
           floatingLabelText={this.props.floatingLabelText}
-          errorText={this.state.errorText}
-          onChange={this.handleError}
+          errorText={this.props.validate ? this.state.errorText : null}
+          onChange={this.handleError && this.props.uppercase ? this.handleCaps : null}
           onEnterKeyDown={this.handleSubmit} />
       </div>
       );
