@@ -40,7 +40,18 @@ var MetricDescriptions = {
 var PortfolioView = React.createClass({
   getInitialState: function() {
     return {
-      user: null
+      user: null,
+      MetricDescriptions: {
+        "riskyAsset": "Stock Allocation",
+        "bond": "Bond Allocation",
+        "financialMean": "Financial Portfolio μ",
+        "financialSD": "Financial Portfolio σ",
+        "totalWealthMean": "Total Wealth Portfolio μ",
+        "totalWealthSD": "Total Wealth Portfolio σ",
+        "riskAversion": "Risk Aversion (1 - 5)",
+        "correlation": "Correlation of X to Market",
+        "fractionOfWealth": "% of Wealth in Financial Assets"
+      }
     };
   },
   componentDidMount: function() {
@@ -69,8 +80,6 @@ var PortfolioView = React.createClass({
 
     this.refs.info.updateContent(metric);
     this.refs.info.showDescription();
-
-    console.log(MetricDescriptions[metric]);
   },
   handleFormat: function(value, metric) {
     if (metric === 'riskAversion') {
@@ -89,7 +98,7 @@ var PortfolioView = React.createClass({
         title = ""
         key={++id}
         >
-          <div className="gridTitle">{MetricDescriptions[metric]}</div>
+          <div className="gridTitle">{metric === 'correlation' ? ('Correlation of ' + self.props.ticker + ' to Market') : self.state.MetricDescriptions[metric]}</div>
           <div className="iconInfo"><IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton></div>
           <span className="metric animated flipInX">{self.handleFormat(value, metric)}</span>
         </GridTile>
@@ -98,7 +107,7 @@ var PortfolioView = React.createClass({
     var user = this.state.user ? gridTiles : null;
     return (
       <div className="porfolioGrid">
-        <Description ref="info" />
+        <Description ticker={this.props.ticker} ref="info" />
         <GridList cols={3} cellHeight={300} style={{width: 1000, height: 1000, overflowY: 'auto'}} >
           {user}
         </GridList>
