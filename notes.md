@@ -4,11 +4,11 @@ USER EXPERIENCE
 2. Click button to open risk survey - DONE
   a. Fill out risk survey (5 q's) - DONE
   b. On Submit, add each answer to the user object stored on the client - DONE
-3. Show input with investment % question & text explaining
-  a. on submit, add to user object
-4. Change text with new input asking for company ticker
-  a. on submit, add ticker to user object
-  b. post request to server with user obj
+3. Show input with investment % question & text explaining - DONE
+  a. on submit, add to user object - DONE
+4. Change text with new input asking for company ticker - DONE
+  a. on submit, add ticker to user object - DONE
+  b. post request to server with user obj - DONE
 
 var sendToServer = {
   surveyResults: [],

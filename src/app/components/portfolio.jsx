@@ -71,9 +71,11 @@ var PortfolioView = React.createClass({
 
   render: function() {
     var self = this;
+    var id = -1;
     var gridTiles = _.map(this.state.user, function(value, metric) {
       return (
         <GridTile
+        key={++id}
         title={metric}
         actionIcon={<IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="white"/></IconButton>}
         >

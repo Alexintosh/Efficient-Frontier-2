@@ -47,7 +47,7 @@ var Main = React.createClass({
       showRiskSurvey: false,
       showWealthSplit: true,
       heading: 'How much of your money are you planning to invest?',
-      subHeading: 'Cool, just two more questions to go. Please estimate how much of your money you will be investing and hit enter when you\'re done.'
+      subHeading: 'Cool, just two more questions to go. Please estimate what percentage of your total wealth you will be investing in financial assets and hit enter when you\'re done.'
     });
   },
   handleSplit: function(value) {
