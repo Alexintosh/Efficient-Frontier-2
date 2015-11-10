@@ -98,7 +98,7 @@ var PortfolioView = React.createClass({
     });
     var user = this.state.user ? gridTiles : null;
     return (
-      <div>
+      <div className="porfolioGrid">
         <Description ref="info" />
         <GridList cols={3} cellHeight={300} style={{width: 1000, height: 1000, overflowY: 'auto'}} >
           {user}

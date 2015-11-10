@@ -51,7 +51,7 @@ var Main = React.createClass({
     });
   },
   handleSplit: function(value) {
-    user.fractionOfWealth = +value;
+    user.fractionOfWealth = +(value / 100);
     this.setState({
       showWealthSplit: false,
       showTickerInput: true,
@@ -64,7 +64,7 @@ var Main = React.createClass({
     this.setState({
       showTickerInput: false,
       showPortfolio: true,
-      heading: '',
+      heading: 'Your Optimal Financial Portfolio',
       subHeading: ''
     });
   },
@@ -83,7 +83,7 @@ var Main = React.createClass({
   },
   render:function() {
     var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" fullWidth={true} label="Start" onTouchTap={this.showDialog} /> : null;
-    var wealthSplit = this.state.showWealthSplit ? <InputField hintText="Enter %" eventName="endSplit" /> : null;
+    var wealthSplit = this.state.showWealthSplit ? <InputField floatingLabelText="Enter a Percentage" eventName="endSplit" /> : null;
     var tickerInput = this.state.showTickerInput ? <InputField hintText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
     var portfolio = this.state.showPortfolio ? <Portfolio user= {user} /> : null;
     return (

@@ -10,20 +10,49 @@ var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button');
 
 var InputField = React.createClass({
+  getInitialState: function() {
+    return {
+      errorText: '',
+      addAnimation: false
+    };
+  },
   handleSubmit: function() {
+    var reg = '^[0-9]+$';
     var val = this.refs.input.getValue();
-    var e = this.props.eventName;
-    var event = new CustomEvent(e, {'detail': val});
-    window.dispatchEvent(event);
+
+    if (!val.match(reg) || val < 0 || val > 100) {
+      this.setState({addAnimation: true});
+    } else {
+      var e = this.props.eventName;
+      var event = new CustomEvent(e, {'detail': val});
+      window.dispatchEvent(event);
+    }
+
+  },
+  handleError: function(e) {
+    var reg = '^[0-9]+$';
+    var val = e.target.value;
+
+    if (!val.match(reg)) {
+      this.setState({errorText: 'Please enter a number.'});
+    } else if (val < 0 || val > 100) {
+      this.setState({errorText: 'Please enter a number between 1 and 100.'});
+    } else {
+      this.setState({errorText: ''});
+    }
+
+    this.setState({addAnimation: false});
   },
   render: function() {
     return (
-      <div>
+      <div className={this.state.addAnimation ? 'animated shake' : ''}>
         <h2>{this.props.title}</h2>
         <TextField
           ref="input"
           fullWidth={true}
-          hintText={this.props.hintText}
+          floatingLabelText={this.props.floatingLabelText}
+          errorText={this.state.errorText}
+          onChange={this.handleError}
           onEnterKeyDown={this.handleSubmit} />
       </div>
       );
