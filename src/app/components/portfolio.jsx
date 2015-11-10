@@ -7,12 +7,23 @@ var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
 var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button');
+// var Table = require('material-ui/lib/table/table');
+// var TableFooter = require('material-ui/lib/table/table-footer');
+// var TableBody = require('material-ui/lib/table/table-body');
+// var TableRow = require('material-ui/lib/table/table-row');
+// var TableRowColumn = require('material-ui/lib/table/table-row-column');
+// var TableHeader = require('material-ui/lib/table/table-header');
+// var TableHeaderColumn = require('material-ui/lib/table/table-header-column');
+var GridList = require('material-ui/lib/grid-list/grid-list');
+var GridTile = require('material-ui/lib/grid-list/grid-tile');
+var IconButton = require('material-ui/lib/icon-button');
+var DescriptionIcon = require('material-ui/lib/svg-icons/action/description');
 var $ = require('jquery');
 
 var PortfolioView = React.createClass({
   getInitialState: function() {
     return {
-      riskyAsset: 'init'
+      user: null
     };
   },
   componentDidMount: function() {
@@ -25,18 +36,10 @@ var PortfolioView = React.createClass({
       data: JSON.stringify(userData),
       success: function(user) {
         console.log(user);
-        
+
         if (self.isMounted()) {
           self.setState({
-            riskyAsset: user.riskyAsset,
-            bond: user.bond,
-            financialMean: user.financialMean,
-            financialStd: user.financialStd,
-            totalWealthMean: user.totalWealthMean,
-            totalWealthSD: user.totalWealthSD,
-            riskAversion: user.riskAversion,
-            correlation: user.correlation,
-            fractionOfWealth: user.fractionOfWealth
+            user: user
           });
         }
       },
@@ -47,10 +50,21 @@ var PortfolioView = React.createClass({
   },
 
   render: function() {
+    var gridTiles = _.map(this.state.user, function(value, metric) {
+      return (
+        <GridTile title={metric} 
+        actionIcon={<IconButton><DescriptionIcon color="white"/></IconButton>} >
+          <span className="metric">{value}</span>
+        </GridTile>
+        );
+    });
+    var user = this.state.user ? gridTiles : null;
+
     return (
-      <div>
-        <h1>riskyAsset: {this.state.riskyAsset}</h1>
-      </div>
+
+      <GridList cols={3} cellHeight={300} style={{width: 600, height: 600, overflowY: 'auto'}} >
+        {user}
+      </GridList>
     );
   }
 });
