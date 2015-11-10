@@ -74,12 +74,14 @@ var Main = React.createClass({
     }.bind(this));
   },
   render:function() {
-    var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" label="Default" onTouchTap={this.showDialog} /> : null;
+    var riskSurvey = this.state.showRiskSurvey ? <RaisedButton ref="risk-button" fullWidth={true} label="Start" onTouchTap={this.showDialog} /> : null;
     var wealthSplit = this.state.showWealthSplit ? <InputField hintText="Enter %" eventName="endSplit" /> : null;
     var tickerInput = this.state.showTickerInput ? <InputField hintText="Enter Ticker Symbol" eventName="endTickerInput" /> : null;
     var portfolio = this.state.showPortfolio ? <Portfolio user= {user} /> : null;
     return (
-      <div>
+      <div className="main">
+        <h1>Calculate Your Financial Portfolio</h1>
+        <h3>In just three steps, this tool will calculate your Optimal Portfolio according to Modern Portfolio Theory standards. Click the button to get started! </h3>
         <Survey ref="riskSurvey"/>
         {riskSurvey}
         {wealthSplit}

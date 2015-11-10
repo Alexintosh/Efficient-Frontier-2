@@ -14,12 +14,6 @@
   //https://github.com/zilverline/react-tap-event-plugin
   injectTapEventPlugin();
 
-  /*-----------USER OBJ---------*/
-  var user = {
-    surveyResults: [],
-    fractionOfWealth: 0,
-    ticker: ''
-  };
 
   // Render the main app react component into the app div.
   // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render

@@ -51,9 +51,9 @@ var Survey = React.createClass({
         <Dialog ref="hello" modal={true} title="Risk Assessment" actions={customActions}
           autoDetectWindowHeight={true} autoScrollBodyContent={true}>
 
-            <div style={{height: '2000px'}}>
+            <div style={{height: '1200px'}}>
 
-              <h3>{Headings['Question1']}</h3>
+              <p className="surveyHeading">{Headings['Question1']}</p>
               <SurveyOptions
               ref="q1"
               name="Question1"
@@ -62,7 +62,7 @@ var Survey = React.createClass({
               q3Label="Corporate bonds or bond funds."
               q4Label="Stocks or stock funds."/>
 
-              <h3>{Headings['Question2']}</h3>
+              <p className="surveyHeading">{Headings['Question2']}</p>
               <SurveyOptions 
               ref="q2"
               name="Question2"
@@ -71,7 +71,7 @@ var Survey = React.createClass({
               q3Label="Hopeful."
               q4Label="Invigorated."/>
 
-              <h3>{Headings['Question3']}</h3>
+              <p className="surveyHeading">{Headings['Question3']}</p>
               <SurveyOptions 
               ref="q3"
               name="Question3"
@@ -80,7 +80,7 @@ var Survey = React.createClass({
               q3Label="$27,000 – $13,000."
               q4Label="$27,000 – $13,000."/>
 
-              <h3>{Headings['Question4']}</h3>
+              <p className="surveyHeading">{Headings['Question4']}</p>
               <SurveyOptions
               ref="q4" 
               name="Question4"
@@ -89,7 +89,7 @@ var Survey = React.createClass({
               q3Label="Nothing."
               q4Label="Buy more of the same investment."/>
 
-              <h3>{Headings['Question5']}</h3>
+              <p className="surveyHeading">{Headings['Question5']}</p>
               <SurveyOptions
               ref="q5"
               name="Question5"
