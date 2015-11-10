@@ -8,6 +8,8 @@ var inputs = {
   incomeSD: 0.25
 };
 
+exports.inputs = inputs;
+
 exports.riskyAsset = function(riskAversion, correlation, fractionOfWealth) {
   return +(
           (inputs.mktAvg - inputs.rF -
@@ -50,6 +52,16 @@ exports.totalWealthSD = function(riskAversion, correlation, fractionOfWealth) {
     (2 * fractionOfWealth * (1 - fractionOfWealth) * riskyAsset *
      correlation * inputs.mktSD * inputs.incomeSD)
     )).toFixed(basisPoints);
+};
+
+exports.maxUtility = function(riskAversion, correlation, fractionOfWealth) {
+  // Maximum utility considering outside income factors
+  var totalWealthMean = exports.totalWealthMean(riskAversion, correlation, fractionOfWealth);
+  var totalWealthSD = exports.totalWealthSD(riskAversion, correlation, fractionOfWealth);
+
+  return +(
+      totalWealthMean - (0.5 * riskAversion * Math.pow(totalWealthSD, 2))
+    ).toFixed(basisPoints);
 };
 
 exports.computeRiskAversion = function(surveyResults) {

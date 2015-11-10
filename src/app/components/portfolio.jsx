@@ -24,17 +24,17 @@ var $ = require('jquery');
 var Description = require('./description.jsx');
 var Graph = require('./graph.jsx');
 
-var MetricDescriptions = {
-  "riskyAsset": "Stock Allocation",
-  "bond": "Bond Allocation",
-  "financialMean": "Financial Portfolio μ",
-  "financialSD": "Financial Portfolio σ",
-  "totalWealthMean": "Total Wealth Portfolio μ",
-  "totalWealthSD": "Total Wealth Portfolio σ",
-  "riskAversion": "Risk Aversion (1 - 5)",
-  "correlation": "Correlation of X to Market",
-  "fractionOfWealth": "% of Wealth in Financial Assets"
-};
+// var MetricDescriptions = {
+//   "riskyAsset": "Stock Allocation",
+//   "bond": "Bond Allocation",
+//   "financialMean": "Financial Portfolio μ",
+//   "financialSD": "Financial Portfolio σ",
+//   "totalWealthMean": "Total Wealth Portfolio μ",
+//   "totalWealthSD": "Total Wealth Portfolio σ",
+//   "riskAversion": "Risk Aversion (1 - 5)",
+//   "correlation": "Correlation of X to Market",
+//   "fractionOfWealth": "% of Wealth in Financial Assets"
+// };
 
 
 
@@ -42,6 +42,8 @@ var PortfolioView = React.createClass({
   getInitialState: function() {
     return {
       user: null,
+      userMetrics: null,
+      graphData: null,
       MetricDescriptions: {
         "riskyAsset": "Stock Allocation",
         "bond": "Bond Allocation",
@@ -51,7 +53,7 @@ var PortfolioView = React.createClass({
         "totalWealthSD": "Total Wealth Portfolio σ",
         "riskAversion": "Risk Aversion (1 - 5)",
         "correlation": "Correlation of X to Market",
-        "fractionOfWealth": "% of Wealth in Financial Assets"
+        "maxUtility": "Maximum Achieveable Utility"
       }
     };
   },
@@ -68,7 +70,9 @@ var PortfolioView = React.createClass({
 
         if (self.isMounted()) {
           self.setState({
-            user: user
+            user: user,
+            userMetrics: user.OI,
+            graphData: user.graphData
           });
         }
       },
@@ -86,13 +90,14 @@ var PortfolioView = React.createClass({
     if (metric === 'riskAversion') {
       return value;
     }
+
     return Math.round(100 * value.toFixed(2)) + '%';
   },
 
   render: function() {
     var self = this;
     var id = -1;
-    var gridTiles = _.map(this.state.user, function(value, metric) {
+    var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
       return (
         <GridTile
         className="tile"

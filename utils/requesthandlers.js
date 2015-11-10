@@ -6,6 +6,8 @@ var Stock = require('../db/stocks.js');
 var helpers = require('./helpers');
 var Promise = require('bluebird');
 var formulas = require('./formulas');
+var graphdata = require('./graphdata');
+var formulae = require('./formulae');
 
 exports.handleTicker = function(user) {
   var ticker = user.ticker;
@@ -70,6 +72,9 @@ exports.computePortfolio = function(riskAversion, correlation, fractionOfWealth)
   portfolio['financialSD'] = formulas.financialSD(riskAversion, correlation, fractionOfWealth);
   portfolio['totalWealthMean'] = formulas.totalWealthMean(riskAversion, correlation, fractionOfWealth);
   portfolio['totalWealthSD'] = formulas.totalWealthSD(riskAversion, correlation, fractionOfWealth);
+  portfolio['maxUtility'] = formulas.maxUtility(riskAversion, correlation, fractionOfWealth);
+
+  portfolio['graphData'] = graphdata.getData(portfolio);
 
   return portfolio;
 };
@@ -81,7 +86,7 @@ exports.handleRequest = function(user) {
     exports.handleTicker(user).then(function(correlation) {
       var riskAversion = formulas.computeRiskAversion(user.surveyResults);
       var fractionOfWealth = user.fractionOfWealth;
-      return exports.computePortfolio(riskAversion, correlation, fractionOfWealth);
+      return formulae.getData(riskAversion, correlation, fractionOfWealth);
     })
     .then(function(portfolio) {
       //send portfolio back to client
