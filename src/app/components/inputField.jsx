@@ -10,17 +10,22 @@ var Colors = require('material-ui/lib/styles/colors');
 var FlatButton = require('material-ui/lib/flat-button');
 
 var InputField = React.createClass({
+  getDefaultProps: function() {
+    return {
+      numberField: true
+    };
+  },
   getInitialState: function() {
     return {
       errorText: '',
-      addAnimation: false
+      addAnimation: false,
     };
   },
   handleSubmit: function() {
     var reg = '^[0-9]+$';
     var val = this.refs.input.getValue();
 
-    if (!val.match(reg) || val < 0 || val > 100) {
+    if (this.props.numberField && !val.match(reg) || val < 0 || val > 100) {
       this.setState({addAnimation: true});
     } else {
       var e = this.props.eventName;
