@@ -29,6 +29,7 @@
     "csv-parse": "^1.0.0",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
+    "highcharts": "0.0.10",
     "install": "^0.2.6",
     "jquery": "^2.1.4",
     "material-ui": "^0.13.0",
@@ -40,6 +41,7 @@
     "react-addons-transition-group": "^0.14.0",
     "react-addons-update": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-highcharts": "^5.0.0",
     "react-tap-event-plugin": "^0.2.1",
     "readable-stream": "^2.0.4",
     "simple-statistics": "^1.0.0"
