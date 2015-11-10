@@ -35,6 +35,11 @@ var InputField = React.createClass({
 
   },
   handleError: function(e) {
+    if (this.props.uppercase) {
+      this.handleCaps(e);
+      return;
+    }
+
     var reg = '^[0-9]+$';
     var val = e.target.value;
 
@@ -61,11 +66,13 @@ var InputField = React.createClass({
           fullWidth={true}
           floatingLabelText={this.props.floatingLabelText}
           errorText={this.props.validate ? this.state.errorText : null}
-          onChange={this.handleError && this.props.uppercase ? this.handleCaps : null}
+          onChange={this.handleError}
           onEnterKeyDown={this.handleSubmit} />
       </div>
       );
   }
 });
+
+// && this.props.uppercase ? this.handleCaps : null
 
 module.exports = InputField;
