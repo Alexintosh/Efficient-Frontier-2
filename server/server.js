@@ -13,17 +13,18 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../build'));
 
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/index.html');
+  // res.sendfile(__dirname + '/index.html');
+  res.render('index');
 });
 
 app.post('/portfolio', function(req, res){
-  console.log(req.body);
   var user = req.body;
   requestHandlers.handleRequest(user).then(function(portfolio) {
     res.send(portfolio);
   })
   .catch(function(err) {
-    console.log(err);
+    console.error(err);
+    res.send({redirect: '/404.html'});
   });
 
 });

@@ -208,15 +208,11 @@ Highcharts.Highcharts.setOptions(theme);
 
 var Graph = React.createClass({
   getInitialState: function() {
-    return {  
+    return {
       config: {
         title: {
             text: 'Investment Opportunities, Optimal Portfolios and Utility Curves',
             x: -20 //center
-        },
-        subtitle: {
-            text: 'subtitle',
-            x: -20
         },
         xAxis: {
             title: {

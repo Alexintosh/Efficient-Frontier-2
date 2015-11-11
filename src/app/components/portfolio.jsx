@@ -47,6 +47,10 @@ var PortfolioView = React.createClass({
       contentType: 'application/json',
       data: JSON.stringify(userData),
       success: function(user) {
+        if (typeof user.redirect == 'string') {
+          window.location = user.redirect;
+          return;
+        }
 
         if (self.isMounted()) {
           self.setState({
@@ -77,7 +81,6 @@ var PortfolioView = React.createClass({
   render: function() {
     var self = this;
     var id = -1;
-    console.log(this.state.graphData);
     var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
       return (
         <GridTile

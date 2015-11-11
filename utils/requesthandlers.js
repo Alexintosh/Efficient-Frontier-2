@@ -23,7 +23,11 @@ exports.handleTicker = function(user) {
         resolve(stock.correlation);
       } else {
         //1. if not, get the csv
-        helpers.getStockCSV(ticker).then(function(data) {
+        helpers.getStockCSV(ticker).then(function(res, data) {
+          if (res.statusCode == 404) {
+            throw new Error('ticker not found');
+            return null;
+          }
           return data;
         })
         .then(function(data) {
@@ -51,7 +55,7 @@ exports.handleTicker = function(user) {
           });
         })
         .catch(function(err) {
-          console.error(err);
+          reject(err);
         });
       }
     });
@@ -81,8 +85,6 @@ exports.computePortfolio = function(riskAversion, correlation, fractionOfWealth)
 
 exports.handleRequest = function(user) {
   var promise = new Promise(function(resolve, reject) {
-    //get the user correlation from their ticker
-    // console.log(user);
     exports.handleTicker(user).then(function(correlation) {
       var riskAversion = formulas.computeRiskAversion(user.surveyResults);
       var fractionOfWealth = user.fractionOfWealth;
