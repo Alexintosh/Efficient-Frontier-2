@@ -1,17 +1,17 @@
-/** In this file, we create a React component which incorporates components provided by material-ui */
+/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
-var RaisedButton = require('material-ui/lib/raised-button');
-var Dialog = require('material-ui/lib/dialog');
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
-var Colors = require('material-ui/lib/styles/colors');
-var FlatButton = require('material-ui/lib/flat-button');
-var InputField = require('./inputField.jsx');
-var Promise = require('bluebird');
 
+/*----------------------REACT COMPONENTS-----------------------------*/
+var RaisedButton = require('material-ui/lib/raised-button');
+var InputField = require('./inputField.jsx');
 var Portfolio = require('./portfolio.jsx');
+var Survey = require('./survey.jsx');
+
+/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/
 
 /*-----------USER OBJ---------*/
 var user = {
@@ -19,9 +19,6 @@ var user = {
   fractionOfWealth: 0,
   ticker: ''
 };
-
-/*-----------CUSTOM---------*/
-var Survey = require('./survey.jsx');
 
 var Main = React.createClass({
   getInitialState: function() {

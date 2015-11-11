@@ -1,14 +1,13 @@
-/** In this file, we create a React component which incorporates components provided by material-ui */
+/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
-var _ = require('underscore');
-var RaisedButton = require('material-ui/lib/raised-button');
-var TextField = require('material-ui/lib/text-field');
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
-var Colors = require('material-ui/lib/styles/colors');
-var FlatButton = require('material-ui/lib/flat-button');
 
+/*----------------------REACT COMPONENTS-----------------------------*/
+var TextField = require('material-ui/lib/text-field');
+
+/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/
 var InputField = React.createClass({
   getDefaultProps: function() {
     return {
@@ -72,7 +71,5 @@ var InputField = React.createClass({
       );
   }
 });
-
-// && this.props.uppercase ? this.handleCaps : null
 
 module.exports = InputField;
