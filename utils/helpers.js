@@ -38,7 +38,7 @@ exports.getStockCSV = function(ticker) {
     request.get(exports.stockQueryString(ticker), function(err, response, body) {
       if (err) { reject(err); }
       else {
-        resolve(response, body);
+        resolve(response);
       }
     });
   });

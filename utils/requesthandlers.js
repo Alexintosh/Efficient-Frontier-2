@@ -26,13 +26,14 @@ exports.handleTicker = function(user) {
   /*------BEGIN PROMISE CHAIN TO RETRIEVE AND PROCESS STOCK DATA----*/
       } else {
         //1. if not, get the csv from Yahoo Finance API
-        helpers.getStockCSV(ticker).then(function(res, data) {
+        helpers.getStockCSV(ticker).then(function(res) {
           // Ticker doesn't exist in Yahoo's database
           if (res.statusCode == 404) {
             throw new Error('ticker not found');
             return null;
+          } else {
+            return res.body;
           }
-          return data;
         })
         .then(function(data) {
           // 2. parse the csv
