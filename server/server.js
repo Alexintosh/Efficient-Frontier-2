@@ -1,22 +1,21 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var http = require("http");
 var app = express();
 var helpers = require('../utils/helpers');
 var requestHandlers = require('../utils/requesthandlers');
 
-
 app.use(bodyParser.json());
 
 //Serve static html to client
 app.use(express.static(__dirname + '/../build'));
 
+//Homepage route
 app.get('/', function(req, res){
-  // res.sendfile(__dirname + '/index.html');
   res.render('index');
 });
 
+//Get a user's optimal portfolio
 app.post('/portfolio', function(req, res){
   var user = req.body;
   requestHandlers.handleRequest(user).then(function(portfolio) {
@@ -24,9 +23,14 @@ app.post('/portfolio', function(req, res){
   })
   .catch(function(err) {
     console.error(err);
+    //Portfolio not found, redirect to 404
     res.send({redirect: '/404.html'});
   });
+});
 
+//Wildcard route
+app.get('/*', function(req, res) {
+  res.redirect('404.html');
 });
 
 app.listen(process.env.PORT || 5000);

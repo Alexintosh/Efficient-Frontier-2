@@ -1,14 +1,15 @@
-var path = require('path');
-var fs = require('fs');
-var mongoose = require('mongoose');
-var db = require('../db/config.js');
+//Mongoose Stock Model
 var Stock = require('../db/stocks.js');
+//Helper Functions
 var helpers = require('./helpers');
 var Promise = require('bluebird');
-var formulas = require('./formulas');
-var graphdata = require('./graphdata');
 var formulae = require('./formulae');
 
+/*************************************************
+  Get ticker information from database 
+  or pull & process it from the Yahoo Finance API.
+  Resolves to a single correlation value.
+**************************************************/
 exports.handleTicker = function(user) {
   var ticker = user.ticker;
   var stock = Stock.model.where({ticker: ticker});
@@ -21,9 +22,12 @@ exports.handleTicker = function(user) {
       if (stock) {
         //B. If it is, return the correlation from the db
         resolve(stock.correlation);
+
+  /*------BEGIN PROMISE CHAIN TO RETRIEVE AND PROCESS STOCK DATA----*/
       } else {
-        //1. if not, get the csv
+        //1. if not, get the csv from Yahoo Finance API
         helpers.getStockCSV(ticker).then(function(res, data) {
+          // Ticker doesn't exist in Yahoo's database
           if (res.statusCode == 404) {
             throw new Error('ticker not found');
             return null;
@@ -37,15 +41,15 @@ exports.handleTicker = function(user) {
           });
         })
         .then(function(data) {
-          // 4. compute the correlation
+          // 3. Compute the correlation
           return helpers.getCorrelation(data);
         }).then(function(correlation) {
-          // 5. save stock to db
           var newStock = new Stock.model({
             ticker: ticker,
             correlation: correlation
           });
 
+          // 4. Save stock to db
           newStock.save(function(err, newStock) {
             if (err) {
               reject(err);
@@ -64,29 +68,13 @@ exports.handleTicker = function(user) {
   return promise;
 };
 
-exports.computePortfolio = function(riskAversion, correlation, fractionOfWealth) {
-  var portfolio = {};
-
-  portfolio['riskAversion'] = riskAversion;
-  portfolio['correlation'] = +correlation.toFixed(4);
-  portfolio['fractionOfWealth'] = fractionOfWealth;
-  portfolio['riskyAsset'] = formulas.riskyAsset(riskAversion, correlation, fractionOfWealth);
-  portfolio['bond'] = formulas.bond(riskAversion, correlation, fractionOfWealth);
-  portfolio['financialMean'] = formulas.financialMean(riskAversion, correlation, fractionOfWealth);
-  portfolio['financialSD'] = formulas.financialSD(riskAversion, correlation, fractionOfWealth);
-  portfolio['totalWealthMean'] = formulas.totalWealthMean(riskAversion, correlation, fractionOfWealth);
-  portfolio['totalWealthSD'] = formulas.totalWealthSD(riskAversion, correlation, fractionOfWealth);
-  portfolio['maxUtility'] = formulas.maxUtility(riskAversion, correlation, fractionOfWealth);
-
-  portfolio['graphData'] = graphdata.getData(portfolio);
-
-  return portfolio;
-};
-
+/**************************************************************************
+  Handle a request to /portfolio and return user portfolio from formulae.js
+***************************************************************************/
 exports.handleRequest = function(user) {
   var promise = new Promise(function(resolve, reject) {
     exports.handleTicker(user).then(function(correlation) {
-      var riskAversion = formulas.computeRiskAversion(user.surveyResults);
+      var riskAversion = helpers.getRiskAversion(user.surveyResults);
       var fractionOfWealth = user.fractionOfWealth;
       return formulae.getData(riskAversion, correlation, fractionOfWealth);
     })
@@ -97,7 +85,6 @@ exports.handleRequest = function(user) {
     .catch(function(err) {
       reject(err);
     });
-
   });
 
   return promise;

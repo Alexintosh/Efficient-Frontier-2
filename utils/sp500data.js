@@ -1,3 +1,7 @@
+/********************************************************
+  Closing Prices from the S&P500 over the past two years.
+  Used for correlation calculations.
+*********************************************************/
 module.exports = [
 1921.219971,
 1988.869995,
