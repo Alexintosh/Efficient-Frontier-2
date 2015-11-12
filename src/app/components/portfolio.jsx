@@ -1,24 +1,20 @@
+/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
-var RaisedButton = require('material-ui/lib/raised-button');
-var Dialog = require('material-ui/lib/dialog');
-var TextField = require('material-ui/lib/text-field');
-var ThemeManager = require('material-ui/lib/styles/theme-manager');
-var LightRawTheme = require('material-ui/lib/styles/raw-themes/light-raw-theme');
-var Colors = require('material-ui/lib/styles/colors');
-var FlatButton = require('material-ui/lib/flat-button');
+var $ = require('jquery');
+
+/*----------------------REACT COMPONENTS-----------------------------*/
 var GridList = require('material-ui/lib/grid-list/grid-list');
 var GridTile = require('material-ui/lib/grid-list/grid-tile');
 var IconButton = require('material-ui/lib/icon-button');
 var DescriptionIcon = require('material-ui/lib/svg-icons/action/description');
-var $ = require('jquery');
-
 var Description = require('./description.jsx');
 var Graph = require('./graph.jsx');
 
-
-
+/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/
 var PortfolioView = React.createClass({
   getInitialState: function() {
     return {

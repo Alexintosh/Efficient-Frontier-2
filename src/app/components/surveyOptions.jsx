@@ -1,9 +1,14 @@
+e/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Dialog = require('material-ui/lib/dialog');
+
+/*----------------------REACT COMPONENTS-----------------------------*/
 var RadioButtonGroup = require('material-ui/lib/radio-button-group');
 var RadioButton = require('material-ui/lib/radio-button');
 
+/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/
 var surveyOptions = React.createClass({
   getDefaultProps: function() {
     return {

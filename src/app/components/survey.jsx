@@ -1,10 +1,16 @@
+/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
+
+/*----------------------REACT COMPONENTS-----------------------------*/
 var Dialog = require('material-ui/lib/dialog');
 var FlatButton = require('material-ui/lib/flat-button');
 var SurveyOptions = require('./surveyOptions.jsx');
 
+/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/
 var Headings = {
   "Question1": "With which types of savings or investments are you most comfortable?",
   "Question2": "After you make a savings or investment decision, you feel:",
