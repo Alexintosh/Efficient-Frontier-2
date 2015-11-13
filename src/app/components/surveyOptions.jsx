@@ -1,4 +1,4 @@
-e/*-------------------------DEPENDENCIES-----------------------------*/
+/*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -15,28 +15,50 @@ var surveyOptions = React.createClass({
       marginBottom: 16
     };
   },
+
+  getInitialState: function() {
+    return {
+      buttonValues: [
+        '5.00',
+        '3.75',
+        '2.50',
+        '1.25'
+      ]
+    }
+  },
+
   getValue: function() {
     return this.refs.button.getSelectedValue();
   },
+
+  renderOptions: function() {
+    var options = this.state.buttonValues.map(function(el, i) {
+      var q = 'q' + (i + 1) + 'Label';
+      return (
+          <RadioButton
+            key={i}
+            value={el}
+            label={this.props[q]}
+            style={{marginBottom: this.props.marginBottom}}
+          />
+        );
+    }.bind(this));
+
+    return options;
+  },
+
   render: function() {
+    var options = this.renderOptions();
+
     return (
-        <RadioButtonGroup ref="button" name={this.props.name} defaultSelected="5.00">
-        <RadioButton
-          value="5.00"
-          label={this.props.q1Label}
-          style={{marginBottom: this.props.marginBottom}} />
-        <RadioButton
-          value="3.75"
-          label={this.props.q2Label}
-          style={{marginBottom: this.props.marginBottom}}/>
-        <RadioButton
-          value="2.50"
-          label={this.props.q3Label}
-          style={{marginBottom: this.props.marginBottom}}/>
-        <RadioButton
-          value="1.25"
-          label={this.props.q4Label}
-          style={{marginBottom: this.props.marginBottom}}/>
+        <RadioButtonGroup 
+          ref="button" 
+          name={this.props.name} 
+          defaultSelected={this.state.buttonValues[0]}
+        >
+
+          {options}
+
         </RadioButtonGroup>
       );
   }

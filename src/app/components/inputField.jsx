@@ -14,60 +14,65 @@ var InputField = React.createClass({
       numberField: true
     };
   },
+
   getInitialState: function() {
     return {
       errorText: '',
       addAnimation: false,
     };
   },
+
   handleSubmit: function() {
-    var reg = '^[0-9]+$';
+    var integer = '^[0-9]+$';
     var val = this.refs.input.getValue();
 
-    if (this.props.numberField && !val.match(reg) || val < 0 || val > 100) {
+    if (this.props.numberField && !val.match(integer) || val < 0 || val > 100) {
       this.setState({addAnimation: true});
     } else {
       var e = this.props.eventName;
       var event = new CustomEvent(e, {'detail': val});
       window.dispatchEvent(event);
     }
-
   },
-  handleError: function(e) {
-    if (this.props.uppercase) {
-      this.handleCaps(e);
-      return;
-    }
 
-    var reg = '^[0-9]+$';
+  handleError: function(e) {
+    if (this.props.uppercase) { this.handleCaps(e); }
+    else { this.setErrorText(e); }
+
+    this.setState({addAnimation: false});
+  },
+
+  handleCaps: function(e) {
+    var val = e.target.value;
+    this.refs.input.setValue(val.toUpperCase());
+  },
+
+  setErrorText: function(e) {
+    var integer = '^[0-9]+$';
     var val = e.target.value;
 
-    if (!val.match(reg)) {
+    if (!val.match(integer)) {
       this.setState({errorText: 'Please enter a number.'});
     } else if (val < 0 || val > 100) {
       this.setState({errorText: 'Please enter a number between 1 and 100.'});
     } else {
       this.setState({errorText: ''});
     }
-
-    this.setState({addAnimation: false});
   },
-  handleCaps: function(e) {
-    var val = e.target.value;
-    this.refs.input.setValue(val.toUpperCase());
-  },
+  
   render: function() {
     return (
-      <div className={this.state.addAnimation ? 'animated shake' : ''}>
-        <h2>{this.props.title}</h2>
-        <TextField
-          ref="input"
-          fullWidth={true}
-          floatingLabelText={this.props.floatingLabelText}
-          errorText={this.props.validate ? this.state.errorText : null}
-          onChange={this.handleError}
-          onEnterKeyDown={this.handleSubmit} />
-      </div>
+        <div className={this.state.addAnimation ? 'animated shake' : ''}>
+          <h2>{this.props.title}</h2>
+
+          <TextField
+            ref="input"
+            fullWidth={true}
+            floatingLabelText={this.props.floatingLabelText}
+            errorText={this.props.validate ? this.state.errorText : null}
+            onChange={this.handleError}
+            onEnterKeyDown={this.handleSubmit} />
+        </div>
       );
   }
 });
