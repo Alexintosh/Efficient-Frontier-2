@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>sp500data.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>sp500data.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/********************************************************
+  Closing Prices from the S&amp;P500 over the past two years.
+  Used for correlation calculations.
+*********************************************************/</span>
+<span class="hljs-built_in">module</span>.exports = [
+<span class="hljs-number">1921.219971</span>,
+<span class="hljs-number">1988.869995</span>,
+<span class="hljs-number">1970.890015</span>,
+<span class="hljs-number">2091.540039</span>,
+<span class="hljs-number">2077.570068</span>,
+<span class="hljs-number">2103.840088</span>,
+<span class="hljs-number">2079.649902</span>,
+<span class="hljs-number">2126.639893</span>,
+<span class="hljs-number">2076.620117</span>,
+<span class="hljs-number">2076.780029</span>,
+<span class="hljs-number">2101.610107</span>,
+<span class="hljs-number">2109.98999</span>,
+<span class="hljs-number">2094.110107</span>,
+<span class="hljs-number">2092.830078</span>,
+<span class="hljs-number">2107.389893</span>,
+<span class="hljs-number">2126.060059</span>,
+<span class="hljs-number">2122.72998</span>,
+<span class="hljs-number">2116.100098</span>,
+<span class="hljs-number">2108.290039</span>,
+<span class="hljs-number">2117.689941</span>,
+<span class="hljs-number">2081.179932</span>,
+<span class="hljs-number">2102.060059</span>,
+<span class="hljs-number">2066.959961</span>,
+<span class="hljs-number">2061.02002</span>,
+<span class="hljs-number">2108.100098</span>,
+<span class="hljs-number">2053.399902</span>,
+<span class="hljs-number">2071.26001</span>,
+<span class="hljs-number">2104.5</span>,
+<span class="hljs-number">2110.300049</span>,
+<span class="hljs-number">2096.98999</span>,
+<span class="hljs-number">2055.469971</span>,
+<span class="hljs-number">1994.98999</span>,
+<span class="hljs-number">2051.820068</span>,
+<span class="hljs-number">2019.420044</span>,
+<span class="hljs-number">2044.810059</span>,
+<span class="hljs-number">2058.199951</span>,
+<span class="hljs-number">2088.77002</span>,
+<span class="hljs-number">2070.649902</span>,
+<span class="hljs-number">2002.329956</span>,
+<span class="hljs-number">2075.370117</span>,
+<span class="hljs-number">2067.560059</span>,
+<span class="hljs-number">2063.5</span>,
+<span class="hljs-number">2039.819946</span>,
+<span class="hljs-number">2031.920044</span>,
+<span class="hljs-number">2018.050049</span>,
+<span class="hljs-number">1964.579956</span>,
+<span class="hljs-number">1886.76001</span>,
+<span class="hljs-number">1906.130005</span>,
+<span class="hljs-number">1967.900024</span>,
+<span class="hljs-number">1982.849976</span>,
+<span class="hljs-number">2010.400024</span>,
+<span class="hljs-number">1985.540039</span>,
+<span class="hljs-number">2007.709961</span>,
+<span class="hljs-number">2003.369995</span>,
+<span class="hljs-number">1988.400024</span>,
+<span class="hljs-number">1955.060059</span>,
+<span class="hljs-number">1931.589966</span>,
+<span class="hljs-number">1925.150024</span>,
+<span class="hljs-number">1978.339966</span>,
+<span class="hljs-number">1978.219971</span>,
+<span class="hljs-number">1967.569946</span>,
+<span class="hljs-number">1985.439941</span>,
+<span class="hljs-number">1960.959961</span>,
+<span class="hljs-number">1962.869995</span>,
+<span class="hljs-number">1936.160034</span>,
+<span class="hljs-number">1949.439941</span>,
+<span class="hljs-number">1923.569946</span>,
+<span class="hljs-number">1900.530029</span>,
+<span class="hljs-number">1877.859985</span>,
+<span class="hljs-number">1878.47998</span>,
+<span class="hljs-number">1881.140015</span>,
+<span class="hljs-number">1863.400024</span>,
+<span class="hljs-number">1864.849976</span>,
+<span class="hljs-number">1815.689941</span>,
+<span class="hljs-number">1865.089966</span>,
+<span class="hljs-number">1857.619995</span>,
+<span class="hljs-number">1866.52002</span>,
+<span class="hljs-number">1841.130005</span>,
+<span class="hljs-number">1878.040039</span>,
+<span class="hljs-number">1859.449951</span>,
+<span class="hljs-number">1836.25</span>,
+<span class="hljs-number">1838.630005</span>,
+<span class="hljs-number">1797.02002</span>,
+<span class="hljs-number">1782.589966</span>,
+<span class="hljs-number">1790.290039</span>,
+<span class="hljs-number">1838.699951</span>,
+<span class="hljs-number">1842.369995</span>,
+<span class="hljs-number">1831.369995</span>,
+<span class="hljs-number">1841.400024</span>,
+<span class="hljs-number">1818.319946</span>,
+<span class="hljs-number">1775.319946</span>,
+<span class="hljs-number">1805.089966</span>,
+<span class="hljs-number">1805.810059</span>,
+<span class="hljs-number">1804.76001</span>,
+<span class="hljs-number">1798.180054</span>,
+<span class="hljs-number">1770.609985</span>,
+<span class="hljs-number">1761.640015</span>,
+<span class="hljs-number">1759.77002</span>,
+<span class="hljs-number">1744.5</span>,
+<span class="hljs-number">1703.199951</span>,
+<span class="hljs-number">1690.5</span>,
+<span class="hljs-number">1691.75</span>,
+<span class="hljs-number">1709.910034</span>,
+<span class="hljs-number">1687.98999</span>,
+<span class="hljs-number">1655.170044</span>,
+<span class="hljs-number">1632.969971</span>
+];</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

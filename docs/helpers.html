@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>helpers.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>helpers.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> bluebird = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
+<span class="hljs-keyword">var</span> parse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'csv-parse'</span>);
+<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+<span class="hljs-keyword">var</span> marketData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./sp500data'</span>);
+<span class="hljs-keyword">var</span> Stats = <span class="hljs-built_in">require</span>(<span class="hljs-string">'simple-statistics'</span>);
+
+<span class="hljs-comment">/**************************************************
+  Parses the csv returned by Yahoo Finance API to 
+  get an array of adjusted closing prices.
+***************************************************/</span>
+exports.parseStock = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">csv</span>) </span>{
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    parse(csv, {columns: <span class="hljs-literal">true</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) { reject(err); }
+      <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">var</span> output = data.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">entry</span>) </span>{
+          <span class="hljs-keyword">return</span> +entry[<span class="hljs-string">'Adj Close'</span>];
+        });
+
+        resolve(output);
+      }
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise;
+};
+
+<span class="hljs-comment">/**************************************************
+  Returns the Query String for a user provided stock ticker.
+***************************************************/</span>
+exports.stockQueryString = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ticker</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-string">'http://ichart.finance.yahoo.com/table.csv?s='</span> + ticker + <span class="hljs-string">'&amp;a=07&amp;b=30&amp;c=2013&amp;d=08&amp;e=4&amp;f=2015&amp;g=w&amp;ignore=.csv'</span>;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Makes a request to Yahoo Finance API for a specific stock</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports.getStockCSV = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ticker</span>) </span>{
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    request.get(exports.stockQueryString(ticker), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, response, body</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) { reject(err); }
+      <span class="hljs-keyword">else</span> {
+        resolve(response);
+      }
+    });
+  });
+
+  <span class="hljs-keyword">return</span> promise;
+};
+
+<span class="hljs-comment">/**************************************************
+  Returns the correlation between a specific stock and the S&amp;P500. 
+  Expects an array of closing prices.
+***************************************************/</span>
+exports.getCorrelation = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">stockData</span>) </span>{
+  <span class="hljs-keyword">var</span> correlation = Stats.sampleCorrelation(stockData, marketData);
+  <span class="hljs-keyword">return</span> correlation;
+};
+
+<span class="hljs-comment">/**************************************************
+  Returns the average Risk Aversion of a user from their survey.
+***************************************************/</span>
+exports.getRiskAversion = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">surveyResults</span>) </span>{
+  <span class="hljs-keyword">return</span> +<span class="hljs-built_in">Math</span>.round((
+          (surveyResults[<span class="hljs-number">0</span>] + surveyResults[<span class="hljs-number">1</span>] +
+           surveyResults[<span class="hljs-number">2</span>] + surveyResults[<span class="hljs-number">3</span>] + surveyResults[<span class="hljs-number">4</span>]) / <span class="hljs-number">5</span> )
+          );
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

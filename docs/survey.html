@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>survey.jsx</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>survey.jsx</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
+
+<span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
+<span class="hljs-keyword">var</span> Dialog = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/dialog'</span>);
+<span class="hljs-keyword">var</span> FlatButton = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/flat-button'</span>);
+<span class="hljs-keyword">var</span> SurveyOptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./surveyOptions.jsx'</span>);
+
+<span class="hljs-comment">/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/</span>
+<span class="hljs-keyword">var</span> Headings = {
+  <span class="hljs-string">"Question1"</span>: <span class="hljs-string">"With which types of savings or investments are you most comfortable?"</span>,
+  <span class="hljs-string">"Question2"</span>: <span class="hljs-string">"After you make a savings or investment decision, you feel:"</span>,
+  <span class="hljs-string">"Question3"</span>: <span class="hljs-string">"Say you invest $20,000. Each of the following answers shows the range of returns that your investment may experience after just one year, based on the underlying holdings. Which investment would you be most comfortable holding?"</span>,
+  <span class="hljs-string">"Question4"</span>: <span class="hljs-string">"For the last five years, your investment has returned an average 10% per year—in line with other similar investments. However, it loses 20% over the next year. What do you do?"</span>,
+  <span class="hljs-string">"Question5"</span>: <span class="hljs-string">"Which phrase best describes your take on life?"</span>
+}
+
+<span class="hljs-keyword">var</span> Survey = React.createClass({
+  showSurvey: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.hello.show();
+  },
+  hideSurvey: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.hello.dismiss();
+  },
+  getResults: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> results = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>push each survey question into results and return it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    _.each(<span class="hljs-keyword">this</span>.refs, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, ref</span>) </span>{
+      <span class="hljs-keyword">if</span> (ref.slice(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) === <span class="hljs-string">'q'</span>) {
+        results.push(el.getValue());
+      }
+    }.bind(<span class="hljs-keyword">this</span>));
+
+    <span class="hljs-keyword">this</span>.hideSurvey();
+
+    <span class="hljs-keyword">var</span> event = <span class="hljs-keyword">new</span> CustomEvent(<span class="hljs-string">'endSurvey'</span>, {<span class="hljs-string">'detail'</span>: results});
+    <span class="hljs-built_in">window</span>.dispatchEvent(event);
+  },
+  render:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> customActions = [
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">FlatButton</span>
+        <span class="hljs-attribute">label</span>=<span class="hljs-value">"Cancel"</span>
+        <span class="hljs-attribute">secondary</span>=<span class="hljs-value">{true}</span>
+        <span class="hljs-attribute">onTouchTap</span>=<span class="hljs-value">{this.hideSurvey}</span> 
+        <span class="hljs-attribute">key</span>=<span class="hljs-value">{0}</span> /&gt;</span>,
+      <span class="hljs-tag">&lt;<span class="hljs-title">FlatButton</span>
+        <span class="hljs-attribute">label</span>=<span class="hljs-value">"Submit"</span>
+        <span class="hljs-attribute">primary</span>=<span class="hljs-value">{true}</span>
+        <span class="hljs-attribute">onTouchTap</span>=<span class="hljs-value">{this.getResults}</span> 
+        <span class="hljs-attribute">key</span>=<span class="hljs-value">{1}</span> /&gt;</span>
+    ]</span>;
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Dialog</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"hello"</span> <span class="hljs-attribute">modal</span>=<span class="hljs-value">{true}</span> <span class="hljs-attribute">title</span>=<span class="hljs-value">"Risk Assessment"</span> <span class="hljs-attribute">actions</span>=<span class="hljs-value">{customActions}</span>
+          <span class="hljs-attribute">autoDetectWindowHeight</span>=<span class="hljs-value">{true}</span> <span class="hljs-attribute">autoScrollBodyContent</span>=<span class="hljs-value">{true}</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{height:</span> '<span class="hljs-attribute">1200px</span>'}}&gt;</span>
+
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"surveyHeading"</span>&gt;</span>{Headings['Question1']}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">SurveyOptions</span>
+              <span class="hljs-attribute">ref</span>=<span class="hljs-value">"q1"</span>
+              <span class="hljs-attribute">name</span>=<span class="hljs-value">"Question1"</span>
+              <span class="hljs-attribute">q1Label</span>=<span class="hljs-value">"Money market accounts."</span>
+              <span class="hljs-attribute">q2Label</span>=<span class="hljs-value">"Government savings bonds."</span>
+              <span class="hljs-attribute">q3Label</span>=<span class="hljs-value">"Corporate bonds or bond funds."</span>
+              <span class="hljs-attribute">q4Label</span>=<span class="hljs-value">"Stocks or stock funds."</span>/&gt;</span>
+
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"surveyHeading"</span>&gt;</span>{Headings['Question2']}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">SurveyOptions</span> 
+              <span class="hljs-attribute">ref</span>=<span class="hljs-value">"q2"</span>
+              <span class="hljs-attribute">name</span>=<span class="hljs-value">"Question2"</span>
+              <span class="hljs-attribute">q1Label</span>=<span class="hljs-value">"Worried."</span>
+              <span class="hljs-attribute">q2Label</span>=<span class="hljs-value">"Satisfied."</span>
+              <span class="hljs-attribute">q3Label</span>=<span class="hljs-value">"Hopeful."</span>
+              <span class="hljs-attribute">q4Label</span>=<span class="hljs-value">"Invigorated."</span>/&gt;</span>
+
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"surveyHeading"</span>&gt;</span>{Headings['Question3']}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">SurveyOptions</span> 
+              <span class="hljs-attribute">ref</span>=<span class="hljs-value">"q3"</span>
+              <span class="hljs-attribute">name</span>=<span class="hljs-value">"Question3"</span>
+              <span class="hljs-attribute">q1Label</span>=<span class="hljs-value">"$21,000 – $19,000."</span>
+              <span class="hljs-attribute">q2Label</span>=<span class="hljs-value">"$23,000 – $17,000."</span>
+              <span class="hljs-attribute">q3Label</span>=<span class="hljs-value">"$27,000 – $13,000."</span>
+              <span class="hljs-attribute">q4Label</span>=<span class="hljs-value">"$27,000 – $13,000."</span>/&gt;</span>
+
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"surveyHeading"</span>&gt;</span>{Headings['Question4']}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">SurveyOptions</span>
+              <span class="hljs-attribute">ref</span>=<span class="hljs-value">"q4"</span> 
+              <span class="hljs-attribute">name</span>=<span class="hljs-value">"Question4"</span>
+              <span class="hljs-attribute">q1Label</span>=<span class="hljs-value">"Sell all of the investment."</span>
+              <span class="hljs-attribute">q2Label</span>=<span class="hljs-value">"Sell a portion of the investment."</span>
+              <span class="hljs-attribute">q3Label</span>=<span class="hljs-value">"Nothing."</span>
+              <span class="hljs-attribute">q4Label</span>=<span class="hljs-value">"Buy more of the same investment."</span>/&gt;</span>
+
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"surveyHeading"</span>&gt;</span>{Headings['Question5']}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">SurveyOptions</span>
+              <span class="hljs-attribute">ref</span>=<span class="hljs-value">"q5"</span>
+              <span class="hljs-attribute">name</span>=<span class="hljs-value">"Question5"</span>
+              <span class="hljs-attribute">q1Label</span>=<span class="hljs-value">"Proceed with caution--take no unnecessary risks."</span>
+              <span class="hljs-attribute">q2Label</span>=<span class="hljs-value">"Take small, measurable risks and patiently pursue your dreams"</span>
+              <span class="hljs-attribute">q3Label</span>=<span class="hljs-value">"Prepare well, but follow your goals without fear."</span>
+              <span class="hljs-attribute">q4Label</span>=<span class="hljs-value">"No hesitation—-go for it!"</span>/&gt;</span>
+
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">Dialog</span>&gt;</span>
+      )</span>;
+  } 
+});
+
+<span class="hljs-built_in">module</span>.exports = Survey;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

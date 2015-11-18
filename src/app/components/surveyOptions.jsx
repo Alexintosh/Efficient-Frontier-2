@@ -48,8 +48,6 @@ var surveyOptions = React.createClass({
   },
 
   render: function() {
-    var options = this.renderOptions();
-
     return (
         <RadioButtonGroup 
           ref="button" 
@@ -57,7 +55,7 @@ var surveyOptions = React.createClass({
           defaultSelected={this.state.buttonValues[0]}
         >
 
-          {options}
+          {this.renderOptions()}
 
         </RadioButtonGroup>
       );

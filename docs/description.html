@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>description.jsx</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>description.jsx</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+<span class="hljs-keyword">var</span> MetricDescriptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../imports/metricdescriptions'</span>);
+
+<span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
+<span class="hljs-keyword">var</span> Dialog = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/dialog'</span>);
+<span class="hljs-keyword">var</span> FlatButton = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/flat-button'</span>);
+
+<span class="hljs-comment">/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/</span>
+<span class="hljs-keyword">var</span> Description = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> MetricDescriptions(<span class="hljs-keyword">this</span>.props.ticker);
+  },
+
+  showDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.info.show();
+  },
+
+  updateContent: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">metric</span>) </span>{
+    <span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> {
+        title: <span class="hljs-keyword">this</span>.state[metric].title,
+        description: <span class="hljs-keyword">this</span>.state[metric].content  
+      }
+    }.bind(<span class="hljs-keyword">this</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Set the state to metric that was clicked on in the Portfolio</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    this.setState(f());
+  },
+
+  hideModal: function() {
+    this.refs.info.dismiss();
+  },
+
+  render: function() {
+    return (
+        &lt;Dialog title={this.state.title}
+          ref="info"
+          autoDetectWindowHeight={true}
+          autoScrollBodyContent={true}
+          actions={[
+            &lt;FlatButton
+            label="Okay"
+            secondary={true}
+            onTouchTap={this.hideModal}
+            key={0} /&gt;
+          ]}
+        &gt;
+          
+          {this.state.description}
+
+        &lt;/Dialog&gt;
+      );
+  }
+});
+
+module.exports = Description;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

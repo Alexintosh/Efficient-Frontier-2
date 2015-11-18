@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>formulae.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>formulae.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports.getData = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">riskAversion, correlation, fractionOfWealth</span>) </span>{
+
+<span class="hljs-comment">/*-------------------------------- DEFINE VARIABLES ---------------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>For rounding purposes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> basisPoints = <span class="hljs-number">4</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Mapped data for Highcharts rendering</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> financialPortfolioData;
+  <span class="hljs-keyword">var</span> totalWealthPortfolioData;
+  <span class="hljs-keyword">var</span> utilityCurveData;
+
+
+<span class="hljs-comment">/*-------------------------------- DEFINE MODEL INPUTS -------------------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Here the inputs for our tool are defined</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> modelInputs = {
+    rF: <span class="hljs-number">0.01</span>,
+    market: {
+      avgReturn: <span class="hljs-number">0.06</span>,
+      stdDev: <span class="hljs-number">0.16</span>
+    },
+    incomePV: {
+      avgReturn: <span class="hljs-number">0.15</span>,
+      stdDev: <span class="hljs-number">0.25</span>
+    },
+    correlation: correlation,
+    wealthSplit: fractionOfWealth,
+    riskAversion: riskAversion
+  };
+
+
+<span class="hljs-comment">/*------------------------------- DEFINE OPTIMAL WEIGHT STORAGE OBJECT ---------------------------*/</span>
+  <span class="hljs-keyword">var</span> optimalWeights = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>OI = outside income</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI: {
+      riskyAsset: <span class="hljs-number">0</span>,
+      bond: <span class="hljs-number">0</span>,
+      financialMean: <span class="hljs-number">0</span>,
+      financialStdDev: <span class="hljs-number">0</span>,
+      totalWealthMean: <span class="hljs-number">0</span>,
+      totalWealthStdDev: <span class="hljs-number">0</span>,
+      maxUtility: <span class="hljs-number">0</span>
+    },
+    noOI: {
+      riskyAsset: <span class="hljs-number">0</span>,
+      bond: <span class="hljs-number">0</span>,
+      financialMean: <span class="hljs-number">0</span>,
+      financialStdDev: <span class="hljs-number">0</span>,
+      maxUtility: <span class="hljs-number">0</span>
+    }
+  };
+
+
+  <span class="hljs-comment">/*-------------------------------- DEFINE PORTFOLIOS ----------------------------------------------*/</span>
+  <span class="hljs-keyword">var</span> financialPortfolio = {
+    mean: [],
+    stdDev: []
+  };
+
+  <span class="hljs-keyword">var</span> totalWealthPortfolio = {
+    mean: [],
+    stdDev: []
+  };
+
+  <span class="hljs-keyword">var</span> utilityCurve = {
+    mean: [],
+    stdDev: []
+  };
+
+
+<span class="hljs-comment">/*---------------------------- DEFINE OPTIMAL WEIGHT FORMULAE -----------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Updates optimalWeights to reflect current modelInputs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> calculateWeights = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Short hand for object access</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> OI = optimalWeights.OI;
+    <span class="hljs-keyword">var</span> noOI = optimalWeights.noOI;
+
+  <span class="hljs-comment">/*--- The following formulae calculate the weights stored in the optimalWeights object ---*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Optimal weight of the risky asset considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.riskyAsset = +(
+      (modelInputs.market.avgReturn - modelInputs.rF - (modelInputs.riskAversion *
+      modelInputs.correlation * modelInputs.incomePV.stdDev * modelInputs.market.stdDev) +
+      (modelInputs.riskAversion * modelInputs.wealthSplit * modelInputs.correlation *
+      modelInputs.incomePV.stdDev * modelInputs.market.stdDev)) /
+      (modelInputs.riskAversion * modelInputs.wealthSplit * <span class="hljs-built_in">Math</span>.pow(modelInputs.market.stdDev, <span class="hljs-number">2</span>))
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Optimal weight of the bond considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.bond = +(<span class="hljs-number">1</span> - OI.riskyAsset).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Optimal financial mean considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.financialMean = +(
+      (OI.riskyAsset * modelInputs.market.avgReturn) +
+      (<span class="hljs-number">1</span> - OI.riskyAsset) * modelInputs.rF
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Optimal financial standard deviation considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.financialStdDev = +(modelInputs.market.stdDev * OI.riskyAsset).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Optimal total wealth mean considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.totalWealthMean = +(
+      (modelInputs.wealthSplit * OI.financialMean) +
+      ((<span class="hljs-number">1</span> - modelInputs.wealthSplit) * modelInputs.incomePV.avgReturn)
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Optimal total wealth standard deviation considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.totalWealthStdDev = +(<span class="hljs-built_in">Math</span>.sqrt(
+      (<span class="hljs-built_in">Math</span>.pow(modelInputs.wealthSplit, <span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.pow(OI.financialStdDev, <span class="hljs-number">2</span>)) +
+      (<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">1</span> - modelInputs.wealthSplit, <span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.pow(modelInputs.incomePV.stdDev, <span class="hljs-number">2</span>)) +
+      (
+        <span class="hljs-number">2</span> * modelInputs.wealthSplit * (<span class="hljs-number">1</span> - modelInputs.wealthSplit) * OI.riskyAsset *
+        modelInputs.correlation * modelInputs.market.stdDev * modelInputs.incomePV.stdDev
+      )
+    )).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Maximum utility considering outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    OI.maxUtility = +(
+      OI.totalWealthMean - (<span class="hljs-number">0.5</span> * modelInputs.riskAversion * <span class="hljs-built_in">Math</span>.pow(OI.totalWealthStdDev, <span class="hljs-number">2</span>))
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Optimal weight of the risky asset ignoring outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    noOI.riskyAsset = +(
+      (modelInputs.market.avgReturn - modelInputs.rF) /
+      (modelInputs.riskAversion * <span class="hljs-built_in">Math</span>.pow(modelInputs.market.stdDev, <span class="hljs-number">2</span>))
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Optimal weight of the bond ignoring outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    noOI.bond = +(<span class="hljs-number">1</span> - noOI.riskyAsset).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Optimal financial mean ignoring outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    noOI.financialMean = +(
+      (noOI.riskyAsset * modelInputs.market.avgReturn) +
+      (<span class="hljs-number">1</span> - noOI.riskyAsset) * modelInputs.rF
+    ).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Optimal financial standard deviation ignoring outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    noOI.financialStdDev = +(noOI.riskyAsset * modelInputs.market.stdDev).toFixed(basisPoints);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Maximum utility ignoring outside income factors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    noOI.maxUtility = +(
+      noOI.financialMean - (<span class="hljs-number">0.5</span> * modelInputs.riskAversion * <span class="hljs-built_in">Math</span>.pow(noOI.financialStdDev, <span class="hljs-number">2</span>))
+    ).toFixed(basisPoints);
+  };
+
+
+<span class="hljs-comment">/*------------------------------ CALCULATE PORTFOLIOS -------------------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Call calculatePortfolios to update portfolios’ mean stdDev’s at 10% intervals</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> calculatePortfolios = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Initialize the risky asset’s weight to 0% and therefore the bond to 100%</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> riskyAssetWeight = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">10</span>; i++) {
+
+      <span class="hljs-comment">/*----------- Calculate mean for the financialPortfolio ---------------------*/</span>
+      <span class="hljs-keyword">var</span> financialMean = (riskyAssetWeight * modelInputs.market.avgReturn) +
+      ((<span class="hljs-number">1</span> - riskyAssetWeight) * modelInputs.rF);
+
+      financialPortfolio.mean.push(+financialMean.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------------*/</span>
+
+
+      <span class="hljs-comment">/*----------- Calculate standard deviation for the financialPortfolio -------*/</span>
+      <span class="hljs-keyword">var</span> financialStdDev = riskyAssetWeight * modelInputs.market.stdDev;
+
+      financialPortfolio.stdDev.push(+financialStdDev.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------------*/</span>
+
+
+      <span class="hljs-comment">/*----------- Calculate mean for the totalWealthPorfolio --------------------*/</span>
+      <span class="hljs-keyword">var</span> totalWealthMean = (modelInputs.wealthSplit * financialPortfolio.mean[i]) +
+      (<span class="hljs-number">1</span> - modelInputs.wealthSplit) * modelInputs.incomePV.avgReturn;
+
+      totalWealthPortfolio.mean.push(+totalWealthMean.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------------*/</span>
+
+
+      <span class="hljs-comment">/*----------- Calculate standard deviation for the totalWealthPortfolio ------*/</span>
+      <span class="hljs-keyword">var</span> totalWealthStdDev = <span class="hljs-built_in">Math</span>.sqrt(
+        (<span class="hljs-built_in">Math</span>.pow(modelInputs.wealthSplit, <span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.pow(financialPortfolio.stdDev[i], <span class="hljs-number">2</span>)) +
+        (<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">1</span> - modelInputs.wealthSplit, <span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.pow(modelInputs.incomePV.stdDev, <span class="hljs-number">2</span>)) +
+        (
+          <span class="hljs-number">2</span> * modelInputs.wealthSplit * (<span class="hljs-number">1</span> - modelInputs.wealthSplit) * riskyAssetWeight *
+          modelInputs.correlation * modelInputs.market.stdDev * modelInputs.incomePV.stdDev
+        )
+        );
+
+      totalWealthPortfolio.stdDev.push(+totalWealthStdDev.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Increment the risky asset weight by factor of 10%</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      riskyAssetWeight += <span class="hljs-number">0.1</span>;
+    }
+  };
+
+
+<span class="hljs-comment">/*------------------------------ CALCULATE UTILITY CURVE ----------------------------------------*/</span>
+  <span class="hljs-keyword">var</span> calculateUtiltyCurve = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Initialize factors to calculate range of utility points on the utility curve</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> initStdDev = totalWealthPortfolio.stdDev[<span class="hljs-number">10</span>] + <span class="hljs-number">0.01</span>;
+    <span class="hljs-keyword">var</span> initFactor = <span class="hljs-number">59</span>;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">60</span>; i++) {
+
+      <span class="hljs-comment">/*----------- Calculate standard deviation for the utilityCurve -------*/</span>
+      <span class="hljs-keyword">var</span> stdDev = initStdDev * i / initFactor;
+
+      utilityCurve.stdDev.push(+stdDev.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------*/</span>
+
+
+      <span class="hljs-comment">/*----------- Calculate mean for the utilityCurve ---------------------*/</span>
+      <span class="hljs-keyword">var</span> mean = optimalWeights.OI.maxUtility +
+      (<span class="hljs-number">0.5</span> * <span class="hljs-built_in">Math</span>.pow(utilityCurve.stdDev[i], <span class="hljs-number">2</span>) * modelInputs.riskAversion);
+
+      utilityCurve.mean.push(+mean.toFixed(basisPoints));
+      <span class="hljs-comment">/*---------------------------------------------------------------------*/</span>
+
+    }
+  };
+
+
+<span class="hljs-comment">/*------------------------------ MAP DATA FOR HIGHCHARTS ------------------------------------------------*/</span>
+  <span class="hljs-keyword">var</span> mapDataForD3 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Map portfolio data to the format: [ [x, y], [x, y] ]…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> mapData = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>) </span>{
+      <span class="hljs-keyword">var</span> mappedObj = obj.stdDev.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) </span>{
+        <span class="hljs-keyword">return</span> [element];
+      });
+      mappedObj.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">element, i</span>) </span>{
+        element[<span class="hljs-number">1</span>] = obj.mean[i];
+      });
+      <span class="hljs-keyword">return</span> mappedObj;
+    };
+
+    financialPortfolioData = mapData(financialPortfolio);
+    totalWealthPortfolioData = mapData(totalWealthPortfolio);
+    utilityCurveData = mapData(utilityCurve);
+  };
+
+<span class="hljs-comment">/*------------------------------ FIRE HELPER FUNCTIONS ------------------------------------------------*/</span>
+
+  calculatePortfolios();
+  calculateWeights();
+  calculateUtiltyCurve();
+  mapDataForD3();
+
+
+<span class="hljs-comment">/*------------------------------ RETURN USER OBJECT ------------------------------------------------*/</span>
+
+  <span class="hljs-keyword">var</span> user = {
+    OI: {}
+  };
+
+  user.OI[<span class="hljs-string">'riskAversion'</span>] = modelInputs.riskAversion;
+  user.OI[<span class="hljs-string">'correlation'</span>] = modelInputs.correlation;
+  user.OI[<span class="hljs-string">'riskyAsset'</span>] = optimalWeights.OI.riskyAsset;
+  user.OI[<span class="hljs-string">'bond'</span>] = optimalWeights.OI.bond;
+  user.OI[<span class="hljs-string">'financialMean'</span>] = optimalWeights.OI.financialMean;
+  user.OI[<span class="hljs-string">'financialSD'</span>] = optimalWeights.OI.financialStdDev;
+  user.OI[<span class="hljs-string">'totalWealthMean'</span>] = optimalWeights.OI.totalWealthMean;
+  user.OI[<span class="hljs-string">'totalWealthSD'</span>] = optimalWeights.OI.totalWealthStdDev;
+  user.OI[<span class="hljs-string">'maxUtility'</span>] = optimalWeights.OI.maxUtility;
+
+  user[<span class="hljs-string">'graphData'</span>] = {
+    financialPortfolio: financialPortfolioData,
+    totalWealthPortfolio: totalWealthPortfolioData,
+    utilityCurve: utilityCurveData
+  };
+
+  <span class="hljs-keyword">return</span> user;
+
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

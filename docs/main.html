@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>main.jsx</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>main.jsx</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
+
+<span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
+<span class="hljs-keyword">var</span> RaisedButton = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/raised-button'</span>);
+<span class="hljs-keyword">var</span> InputField = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./inputField.jsx'</span>);
+<span class="hljs-keyword">var</span> Portfolio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./portfolio.jsx'</span>);
+<span class="hljs-keyword">var</span> Survey = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./survey.jsx'</span>);
+
+<span class="hljs-comment">/*-----------USER OBJ---------*/</span>
+<span class="hljs-keyword">var</span> user = {
+  surveyResults: [],
+  fractionOfWealth: <span class="hljs-number">0</span>,
+  ticker: <span class="hljs-string">''</span>
+};
+
+<span class="hljs-comment">/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/</span>
+<span class="hljs-keyword">var</span> Main = React.createClass({
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      showRiskSurvey: <span class="hljs-literal">true</span>,
+      showWealthSplit: <span class="hljs-literal">false</span>,
+      showTickerInput: <span class="hljs-literal">false</span>,
+      showPortfolio: <span class="hljs-literal">false</span>,
+      heading: <span class="hljs-string">'Calculate Your Financial Portfolio'</span>,
+      subHeading: <span class="hljs-string">'In just three steps, this tool will calculate your Optimal Portfolio according to Modern Portfolio Theory standards. Click the button to get started!'</span>,
+    };
+  },
+  
+  componentDidMount: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'endSurvey'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+      <span class="hljs-keyword">this</span>.handleSurvey(e.detail);
+    }.bind(<span class="hljs-keyword">this</span>));
+
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'endSplit'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+      <span class="hljs-keyword">this</span>.handleSplit(e.detail);
+    }.bind(<span class="hljs-keyword">this</span>));
+
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'endTickerInput'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+      <span class="hljs-keyword">this</span>.handleTickerSubmit(e.detail);
+    }.bind(<span class="hljs-keyword">this</span>));
+  },
+
+  showDialog: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.riskSurvey.showSurvey();
+  },
+
+  handleSurvey: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>map from strings to numbers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    user.surveyResults = _.map(results, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+      <span class="hljs-keyword">return</span> +el;
+    });
+
+    <span class="hljs-keyword">this</span>.setState({
+      showRiskSurvey: <span class="hljs-literal">false</span>,
+      showWealthSplit: <span class="hljs-literal">true</span>,
+      heading: <span class="hljs-string">'How much of your money are you planning to invest?'</span>,
+      subHeading: <span class="hljs-string">'Cool, just two more questions to go. Please estimate what percentage of your total wealth you will be investing in financial assets and hit enter when you\'re done.'</span>
+    });
+  },
+
+  handleSplit: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    user.fractionOfWealth = +(value / <span class="hljs-number">100</span>);
+    <span class="hljs-keyword">this</span>.setState({
+      showWealthSplit: <span class="hljs-literal">false</span>,
+      showTickerInput: <span class="hljs-literal">true</span>,
+      heading: <span class="hljs-string">'What company do you work for?'</span>,
+      subHeading: <span class="hljs-string">'Great! Last question, we need to know what company you work for. Please enter the ticker for a publically traded company in the field below and hit enter when you\'re done.'</span>
+    });
+  },
+
+  handleTickerSubmit: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+    user.ticker = value;
+    <span class="hljs-keyword">this</span>.setState({
+      showTickerInput: <span class="hljs-literal">false</span>,
+      showPortfolio: <span class="hljs-literal">true</span>,
+      heading: <span class="hljs-string">''</span>,
+      subHeading: <span class="hljs-string">''</span>
+    });
+  },
+
+  renderRiskSurvey: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">this</span>.state.showRiskSurvey ?
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">RaisedButton</span> 
+            <span class="hljs-attribute">ref</span>=<span class="hljs-value">"risk-button"</span> 
+            <span class="hljs-attribute">fullWidth</span>=<span class="hljs-value">{true}</span> 
+            <span class="hljs-attribute">label</span>=<span class="hljs-value">"Start"</span> 
+            <span class="hljs-attribute">onTouchTap</span>=<span class="hljs-value">{this.showDialog}</span> /&gt;</span> 
+            :
+            null;
+  },
+
+  renderWealthSplit: function() {
+    return  this.state.showWealthSplit ?
+            <span class="hljs-tag">&lt;<span class="hljs-title">InputField</span> 
+            <span class="hljs-attribute">validate</span>=<span class="hljs-value">{true}</span> 
+            <span class="hljs-attribute">floatingLabelText</span>=<span class="hljs-value">"Enter a Percentage"</span> 
+            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endSplit"</span> /&gt;</span>
+            :
+            null;
+  },
+
+  renderTickerInput: function() {
+    return  this.state.showTickerInput ?
+            <span class="hljs-tag">&lt;<span class="hljs-title">InputField</span> 
+            <span class="hljs-attribute">numberField</span>=<span class="hljs-value">{false}</span>
+            <span class="hljs-attribute">uppercase</span>=<span class="hljs-value">{true}</span>
+            <span class="hljs-attribute">floatingLabelText</span>=<span class="hljs-value">"Enter Ticker Symbol"</span>
+            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endTickerInput"</span> /&gt;</span> 
+            :
+            null;
+  },
+
+  renderPortfolio: function() {
+    return  this.state.showPortfolio ?
+            <span class="hljs-tag">&lt;<span class="hljs-title">Portfolio</span> 
+            <span class="hljs-attribute">heading</span>=<span class="hljs-value">{this.state.heading}</span> 
+            <span class="hljs-attribute">ticker</span>=<span class="hljs-value">{user.ticker}</span> 
+            <span class="hljs-attribute">user</span>= {<span class="hljs-attribute">user</span>} /&gt;</span> 
+            : 
+            null;
+  },
+
+  render:function() {
+    return (
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"app"</span>&gt;</span>
+        
+          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"main"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{this.state.heading}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>{this.state.subHeading}<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">Survey</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"riskSurvey"</span>/&gt;</span>
+
+            {this.renderRiskSurvey()}
+            {this.renderWealthSplit()}
+            {this.renderTickerInput()}
+
+          <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+          {this.renderPortfolio()}
+
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      )</span>;
+  }
+});
+
+<span class="hljs-built_in">module</span>.exports = Main;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

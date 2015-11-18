@@ -2,17 +2,25 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var http = require("http");
 var app = express();
-var helpers = require('../utils/helpers');
-var requestHandlers = require('../utils/requesthandlers');
+var helpers = require('./utils/helpers');
+var requestHandlers = require('./utils/requesthandlers');
 
 app.use(bodyParser.json());
 
 //Serve static html to client
-app.use(express.static(__dirname + '/../build'));
+app.use('/', express.static(__dirname + '/build'));
+
+// **Static folder for serving documentation**
+app.use('/documentation', express.static(__dirname + '/docs'));
 
 //Homepage route
 app.get('/', function(req, res){
   res.render('index');
+});
+
+// **Documentation Page**
+app.get('/documentation', function(req, res) {
+  res.sendFile(__dirname + '/docs/tableOfContents.html');
 });
 
 //Get a user's optimal portfolio

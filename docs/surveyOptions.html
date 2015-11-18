@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>surveyOptions.jsx</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="config.html">
+                  config.js
+                </a>
+              
+                
+                <a class="source" href="stocks.html">
+                  stocks.js
+                </a>
+              
+                
+                <a class="source" href="app.html">
+                  app.jsx
+                </a>
+              
+                
+                <a class="source" href="description.html">
+                  description.jsx
+                </a>
+              
+                
+                <a class="source" href="graph.html">
+                  graph.jsx
+                </a>
+              
+                
+                <a class="source" href="inputField.html">
+                  inputField.jsx
+                </a>
+              
+                
+                <a class="source" href="main.html">
+                  main.jsx
+                </a>
+              
+                
+                <a class="source" href="portfolio.html">
+                  portfolio.jsx
+                </a>
+              
+                
+                <a class="source" href="survey.html">
+                  survey.jsx
+                </a>
+              
+                
+                <a class="source" href="surveyOptions.html">
+                  surveyOptions.jsx
+                </a>
+              
+                
+                <a class="source" href="graphconfig.html">
+                  graphconfig.js
+                </a>
+              
+                
+                <a class="source" href="metricdescriptions.html">
+                  metricdescriptions.js
+                </a>
+              
+                
+                <a class="source" href="theme.html">
+                  theme.js
+                </a>
+              
+                
+                <a class="source" href="tableOfContents.html">
+                  tableOfContents.js
+                </a>
+              
+                
+                <a class="source" href="formulae.html">
+                  formulae.js
+                </a>
+              
+                
+                <a class="source" href="helpers.html">
+                  helpers.js
+                </a>
+              
+                
+                <a class="source" href="requesthandlers.html">
+                  requesthandlers.js
+                </a>
+              
+                
+                <a class="source" href="sp500data.html">
+                  sp500data.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>surveyOptions.jsx</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
+
+<span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
+<span class="hljs-keyword">var</span> RadioButtonGroup = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/radio-button-group'</span>);
+<span class="hljs-keyword">var</span> RadioButton = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/radio-button'</span>);
+
+<span class="hljs-comment">/*********************************************************************
+                          COMPONENT BODY
+**********************************************************************/</span>
+<span class="hljs-keyword">var</span> surveyOptions = React.createClass({
+  getDefaultProps: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      marginBottom: <span class="hljs-number">16</span>
+    };
+  },
+
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      buttonValues: [
+        <span class="hljs-string">'5.00'</span>,
+        <span class="hljs-string">'3.75'</span>,
+        <span class="hljs-string">'2.50'</span>,
+        <span class="hljs-string">'1.25'</span>
+      ]
+    }
+  },
+
+  getValue: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.refs.button.getSelectedValue();
+  },
+
+  renderOptions: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> options = <span class="hljs-keyword">this</span>.state.buttonValues.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, i</span>) </span>{
+      <span class="hljs-keyword">var</span> q = <span class="hljs-string">'q'</span> + (i + <span class="hljs-number">1</span>) + <span class="hljs-string">'Label'</span>;
+      <span class="hljs-keyword">return</span> (
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">RadioButton</span>
+            <span class="hljs-attribute">key</span>=<span class="hljs-value">{i}</span>
+            <span class="hljs-attribute">value</span>=<span class="hljs-value">{el}</span>
+            <span class="hljs-attribute">label</span>=<span class="hljs-value">{this.props[q]}</span>
+            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{marginBottom:</span> <span class="hljs-attribute">this.props.marginBottom</span>}}
+          /&gt;</span>
+        )</span>;
+    }.bind(<span class="hljs-keyword">this</span>));
+
+    <span class="hljs-keyword">return</span> options;
+  },
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">RadioButtonGroup</span> 
+          <span class="hljs-attribute">ref</span>=<span class="hljs-value">"button"</span> 
+          <span class="hljs-attribute">name</span>=<span class="hljs-value">{this.props.name}</span> 
+          <span class="hljs-attribute">defaultSelected</span>=<span class="hljs-value">{this.state.buttonValues[0]}</span>
+        &gt;</span>
+
+          {this.renderOptions()}
+
+        <span class="hljs-tag">&lt;/<span class="hljs-title">RadioButtonGroup</span>&gt;</span>
+      )</span>;
+  }
+});
+
+<span class="hljs-built_in">module</span>.exports = surveyOptions;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
