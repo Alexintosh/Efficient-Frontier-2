@@ -135,15 +135,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h2 id="dependencies">Dependencies</h2>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 <span class="hljs-keyword">var</span> bodyParser = <span class="hljs-built_in">require</span>(<span class="hljs-string">'body-parser'</span>);
 <span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>);
 <span class="hljs-keyword">var</span> app = express();
-<span class="hljs-keyword">var</span> helpers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../utils/helpers'</span>);
-<span class="hljs-keyword">var</span> requestHandlers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../utils/requesthandlers'</span>);
+<span class="hljs-keyword">var</span> helpers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils/helpers'</span>);
+<span class="hljs-keyword">var</span> requestHandlers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils/requesthandlers'</span>);
 
 app.use(bodyParser.json());</pre></div></div>
             
@@ -160,7 +162,7 @@ app.use(bodyParser.json());</pre></div></div>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.use(<span class="hljs-string">'/'</span>, express.static(__dirname + <span class="hljs-string">'/../build'</span>));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>app.use(<span class="hljs-string">'/'</span>, express.static(__dirname + <span class="hljs-string">'/build'</span>));</pre></div></div>
             
         </li>
         
@@ -171,7 +173,7 @@ app.use(bodyParser.json());</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p><strong>Static folder for serving documentation</strong></p>
+              <p>Static folder for serving documentation</p>
 
             </div>
             
@@ -186,13 +188,9 @@ app.use(bodyParser.json());</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Homepage route</p>
+              <h2 id="routes">Routes</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
-  res.render(<span class="hljs-string">'index'</span>);
-});</pre></div></div>
             
         </li>
         
@@ -203,12 +201,12 @@ app.use(bodyParser.json());</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p><strong>Documentation Page</strong></p>
+              <p><strong> Home page </strong></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/documentation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
-  res.sendFile(__dirname + <span class="hljs-string">'/docs/tableofcontents.html'</span>);
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
+  res.render(<span class="hljs-string">'index'</span>);
 });</pre></div></div>
             
         </li>
@@ -220,17 +218,13 @@ app.use(bodyParser.json());</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Get a user’s optimal portfolio</p>
+              <p><strong> Documentation Page </strong></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.post(<span class="hljs-string">'/portfolio'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
-  <span class="hljs-keyword">var</span> user = req.body;
-  requestHandlers.handleRequest(user).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">portfolio</span>) </span>{
-    res.send(portfolio);
-  })
-  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
-    <span class="hljs-built_in">console</span>.error(err);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/documentation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  res.sendFile(__dirname + <span class="hljs-string">'/docs/tableOfContents.html'</span>);
+});</pre></div></div>
             
         </li>
         
@@ -240,6 +234,41 @@ app.use(bodyParser.json());</pre></div></div>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p><strong> Get a user’s optimal portfolio </strong></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.post(<span class="hljs-string">'/portfolio'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>)</span>{
+  <span class="hljs-keyword">var</span> user = req.body;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Invoke promise chain from <a href="./helpers.html">helpers.js</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  requestHandlers.handleRequest(user).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">portfolio</span>) </span>{
+    res.send(portfolio);
+  })
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+    <span class="hljs-built_in">console</span>.error(err);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Portfolio not found, redirect to 404</p>
 
@@ -252,21 +281,34 @@ app.use(bodyParser.json());</pre></div></div>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>Wildcard route</p>
+              <p><strong> Wildcard route </strong></p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>app.get(<span class="hljs-string">'/*'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
   res.redirect(<span class="hljs-string">'404.html'</span>);
-});
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p><strong> Start App </strong></p>
 
-app.listen(process.env.PORT || <span class="hljs-number">5000</span>);</pre></div></div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.listen(process.env.PORT || <span class="hljs-number">5000</span>);</pre></div></div>
             
         </li>
         

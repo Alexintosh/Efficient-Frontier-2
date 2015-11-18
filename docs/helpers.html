@@ -30,6 +30,11 @@
                 </a>
               
                 
+                <a class="source" href="server.html">
+                  server.js
+                </a>
+              
+                
                 <a class="source" href="app.html">
                   app.jsx
                 </a>
@@ -130,15 +135,30 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h2 id="dependencies">Dependencies</h2>
+
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> bluebird = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
 <span class="hljs-keyword">var</span> parse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'csv-parse'</span>);
 <span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 <span class="hljs-keyword">var</span> marketData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./sp500data'</span>);
-<span class="hljs-keyword">var</span> Stats = <span class="hljs-built_in">require</span>(<span class="hljs-string">'simple-statistics'</span>);
+<span class="hljs-keyword">var</span> Stats = <span class="hljs-built_in">require</span>(<span class="hljs-string">'simple-statistics'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="methods">Methods</h2>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
 <span class="hljs-comment">/**************************************************
   Parses the csv returned by Yahoo Finance API to 
   get an array of adjusted closing prices.
@@ -147,8 +167,22 @@ exports.parseStock = <span class="hljs-function"><span class="hljs-keyword">func
   <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>) </span>{
     parse(csv, {columns: <span class="hljs-literal">true</span>}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) </span>{
       <span class="hljs-keyword">if</span> (err) { reject(err); }
-      <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">var</span> output = data.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">entry</span>) </span>{
+      <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Remove irrelevant data from CSV and coerce values to <code>typeof</code> <em>Number</em></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> output = data.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">entry</span>) </span>{
           <span class="hljs-keyword">return</span> +entry[<span class="hljs-string">'Adj Close'</span>];
         });
 
@@ -170,11 +204,11 @@ exports.stockQueryString = <span class="hljs-function"><span class="hljs-keyword
         </li>
         
         
-        <li id="section-2">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>Makes a request to Yahoo Finance API for a specific stock</p>
 

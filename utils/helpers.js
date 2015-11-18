@@ -1,8 +1,11 @@
+// ## Dependencies
 var bluebird = require('bluebird');
 var parse = require('csv-parse');
 var request = require('request');
 var marketData = require('./sp500data');
 var Stats = require('simple-statistics');
+
+// ## Methods
 
 /**************************************************
   Parses the csv returned by Yahoo Finance API to 
@@ -13,6 +16,7 @@ exports.parseStock = function(csv) {
     parse(csv, {columns: true}, function(err, data) {
       if (err) { reject(err); }
       else {
+        // Remove irrelevant data from CSV and coerce values to ```typeof``` *Number*
         var output = data.map(function(entry) {
           return +entry['Adj Close'];
         });

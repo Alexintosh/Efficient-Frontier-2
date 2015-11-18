@@ -30,6 +30,11 @@
                 </a>
               
                 
+                <a class="source" href="server.html">
+                  server.js
+                </a>
+              
+                
                 <a class="source" href="app.html">
                   app.jsx
                 </a>
@@ -130,10 +135,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h4 id="this-file-contains-all-calculations-necessary-to-return-a-final-user-object-which-represents-that-user-s-optimal-portfolio-">This file contains all calculations necessary to return a final user object which represents that user’s optimal portfolio.</h4>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre>exports.getData = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">riskAversion, correlation, fractionOfWealth</span>) </span>{
+            <div class="content"><div class='highlight'><pre>
+exports.getData = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">riskAversion, correlation, fractionOfWealth</span>) </span>{
 
 <span class="hljs-comment">/*-------------------------------- DEFINE VARIABLES ---------------------------------------*/</span></pre></div></div>
             
@@ -146,7 +153,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>For rounding purposes</p>
+              <p>For rounding purposes.</p>
 
             </div>
             
@@ -161,7 +168,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Mapped data for Highcharts rendering</p>
+              <p>Mapped data for Highcharts rendering.</p>
 
             </div>
             
@@ -181,7 +188,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Here the inputs for our tool are defined</p>
+              <p>Here the inputs for our tool are defined.</p>
 
             </div>
             
@@ -213,7 +220,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>OI = outside income</p>
+              <p>OI = outside income.</p>
 
             </div>
             
@@ -264,7 +271,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Updates optimalWeights to reflect current modelInputs</p>
+              <p>Updates optimalWeights to reflect current modelInputs.</p>
 
             </div>
             
@@ -279,7 +286,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Short hand for object access</p>
+              <p>Short hand for object access.</p>
 
             </div>
             
@@ -297,7 +304,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Optimal weight of the risky asset considering outside income factors</p>
+              <p>Optimal weight of the risky asset considering outside income factors.</p>
 
             </div>
             
@@ -318,7 +325,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Optimal weight of the bond considering outside income factors</p>
+              <p>Optimal weight of the bond considering outside income factors.</p>
 
             </div>
             
@@ -333,7 +340,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>Optimal financial mean considering outside income factors</p>
+              <p>Optimal financial mean considering outside income factors.</p>
 
             </div>
             
@@ -351,7 +358,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>Optimal financial standard deviation considering outside income factors</p>
+              <p>Optimal financial standard deviation considering outside income factors.</p>
 
             </div>
             
@@ -366,7 +373,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>Optimal total wealth mean considering outside income factors</p>
+              <p>Optimal total wealth mean considering outside income factors.</p>
 
             </div>
             
@@ -384,7 +391,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>Optimal total wealth standard deviation considering outside income factors</p>
+              <p>Optimal total wealth standard deviation considering outside income factors.</p>
 
             </div>
             
@@ -406,7 +413,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>Maximum utility considering outside income factors</p>
+              <p>Maximum utility considering outside income factors.</p>
 
             </div>
             
@@ -423,7 +430,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>Optimal weight of the risky asset ignoring outside income factors</p>
+              <p>Optimal weight of the risky asset ignoring outside income factors.</p>
 
             </div>
             
@@ -441,7 +448,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>Optimal weight of the bond ignoring outside income factors</p>
+              <p>Optimal weight of the bond ignoring outside income factors.</p>
 
             </div>
             
@@ -456,7 +463,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p>Optimal financial mean ignoring outside income factors</p>
+              <p>Optimal financial mean ignoring outside income factors.</p>
 
             </div>
             
@@ -474,7 +481,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>Optimal financial standard deviation ignoring outside income factors</p>
+              <p>Optimal financial standard deviation ignoring outside income factors.</p>
 
             </div>
             
@@ -489,7 +496,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
-              <p>Maximum utility ignoring outside income factors</p>
+              <p>Maximum utility ignoring outside income factors.</p>
 
             </div>
             
@@ -510,7 +517,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
-              <p>Call calculatePortfolios to update portfolios’ mean stdDev’s at 10% intervals</p>
+              <p>Call calculatePortfolios to update portfolios’ mean stdDev’s at 10% intervals.</p>
 
             </div>
             
@@ -525,7 +532,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
-              <p>Initialize the risky asset’s weight to 0% and therefore the bond to 100%</p>
+              <p>Initialize the risky asset’s weight to 0% and therefore the bond to 100%.</p>
 
             </div>
             
@@ -578,7 +585,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
-              <p>Increment the risky asset weight by factor of 10%</p>
+              <p>Increment the risky asset weight by factor of 10%.</p>
 
             </div>
             
@@ -599,7 +606,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
-              <p>Initialize factors to calculate range of utility points on the utility curve</p>
+              <p>Initialize factors to calculate range of utility points on the utility curve.</p>
 
             </div>
             
@@ -638,7 +645,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
-              <p>Map portfolio data to the format: [ [x, y], [x, y] ]…</p>
+              <p>Map portfolio data to the format: [ [x, y], [x, y] ] …</p>
 
             </div>
             
@@ -665,13 +672,39 @@
   mapDataForD3();
 
 
-<span class="hljs-comment">/*------------------------------ RETURN USER OBJECT ------------------------------------------------*/</span>
+<span class="hljs-comment">/*------------------------------ RETURN USER OBJECT ------------------------------------------------*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h4 id="a-user-s-optimal-portfolio-">A user’s optimal portfolio.</h4>
 
-  <span class="hljs-keyword">var</span> user = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> user = {
     OI: {}
-  };
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>The individual metrics that will be rendered client side.</p>
 
-  user.OI[<span class="hljs-string">'riskAversion'</span>] = modelInputs.riskAversion;
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  user.OI[<span class="hljs-string">'riskAversion'</span>] = modelInputs.riskAversion;
   user.OI[<span class="hljs-string">'correlation'</span>] = modelInputs.correlation;
   user.OI[<span class="hljs-string">'riskyAsset'</span>] = optimalWeights.OI.riskyAsset;
   user.OI[<span class="hljs-string">'bond'</span>] = optimalWeights.OI.bond;
@@ -679,9 +712,22 @@
   user.OI[<span class="hljs-string">'financialSD'</span>] = optimalWeights.OI.financialStdDev;
   user.OI[<span class="hljs-string">'totalWealthMean'</span>] = optimalWeights.OI.totalWealthMean;
   user.OI[<span class="hljs-string">'totalWealthSD'</span>] = optimalWeights.OI.totalWealthStdDev;
-  user.OI[<span class="hljs-string">'maxUtility'</span>] = optimalWeights.OI.maxUtility;
+  user.OI[<span class="hljs-string">'maxUtility'</span>] = optimalWeights.OI.maxUtility;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Data for Highcharts to render client side.</p>
 
-  user[<span class="hljs-string">'graphData'</span>] = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  user[<span class="hljs-string">'graphData'</span>] = {
     financialPortfolio: financialPortfolioData,
     totalWealthPortfolio: totalWealthPortfolioData,
     utilityCurve: utilityCurveData

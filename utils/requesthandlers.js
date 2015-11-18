@@ -1,9 +1,10 @@
-//Mongoose Stock Model
+// ## Dependencies
 var Stock = require('../db/stocks.js');
-//Helper Functions
 var helpers = require('./helpers');
 var Promise = require('bluebird');
 var formulae = require('./formulae');
+
+// ## Methods
 
 /*************************************************
   Get ticker information from database 
@@ -18,16 +19,16 @@ exports.handleTicker = function(user) {
 
     stock.findOne(function(err, stock) {
       if (err) { reject(err); }
-      //A. Check if ticker is in database
+      // A. Check if ticker is in database.
       if (stock) {
-        //B. If it is, return the correlation from the db
+        // B. If it is, return the correlation from the db.
         resolve(stock.correlation);
 
   /*------BEGIN PROMISE CHAIN TO RETRIEVE AND PROCESS STOCK DATA----*/
       } else {
-        //1. if not, get the csv from Yahoo Finance API
+        // 1) If not, get the csv from Yahoo Finance API.
         helpers.getStockCSV(ticker).then(function(res) {
-          // Ticker doesn't exist in Yahoo's database
+          // Ticker doesn't exist in Yahoo's database.
           if (res.statusCode == 404) {
             throw new Error('ticker not found');
             return null;
@@ -36,13 +37,13 @@ exports.handleTicker = function(user) {
           }
         })
         .then(function(data) {
-          // 2. parse the csv
+          // 2) Parse the csv.
           return helpers.parseStock(data).then(function(data) {
             return data;
           });
         })
         .then(function(data) {
-          // 3. Compute the correlation
+          // 3) Compute the correlation.
           return helpers.getCorrelation(data);
         }).then(function(correlation) {
           var newStock = new Stock.model({
@@ -50,7 +51,7 @@ exports.handleTicker = function(user) {
             correlation: correlation
           });
 
-          // 4. Save stock to db
+          // 4) Save stock to database.
           newStock.save(function(err, newStock) {
             if (err) {
               reject(err);
@@ -80,7 +81,7 @@ exports.handleRequest = function(user) {
       return formulae.getData(riskAversion, correlation, fractionOfWealth);
     })
     .then(function(portfolio) {
-      //send portfolio back to client
+      // Send portfolio back to the ```'/post'``` route of [server.js](./server.html).
       resolve(portfolio);
     })
     .catch(function(err) {

@@ -6,29 +6,29 @@
 // ## Server
 
 // #### [server.js](./server.html)
-// * Heroku server file.
+// Heroku server file.
 
 // ## DB
 
 // #### [config.js](./config.html)
-// * Configuration file for MongoDB database.
+// Configuration file for MongoDB database.
 
-// #### [board.js](./board.html)
-// * Mongoose model for stocks.
+// #### [stocks.js](./stocks.html)
+// Mongoose model for stocks.
 
 // ## Utils
 
 // #### [formulae.js](./formulae.html)
-// * Formulas to calculate Optimal Financial Portfolio and associated metrics.
+// Formulas to calculate Optimal Financial Portfolio and associated metrics.
 
 // #### [helpers.js](./helpers.html)
-// * Helper methods for CSV parsing and data formatting.
+// Helper methods for CSV parsing and data formatting.
 
 // #### [requesthandlers.js](./requesthandlers.html)
-// * Handle a request to /portfolio and the associated calculations.
+// Handle a request to /portfolio and the associated calculations.
 
 // #### [sp500data.js](./sp500data.html)
-// * S&P500 data for past two years, used in correlation calculations.
+// S&P500 data for past two years, used in correlation calculations.
 
 
 
