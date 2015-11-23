@@ -85,6 +85,11 @@
                 </a>
               
                 
+                <a class="source" href="surveyQuestions.html">
+                  surveyQuestions.js
+                </a>
+              
+                
                 <a class="source" href="theme.html">
                   theme.js
                 </a>
@@ -143,6 +148,8 @@
 <span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 <span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
 <span class="hljs-keyword">var</span> $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
+<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
+<span class="hljs-keyword">var</span> MetricDescriptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../imports/metricdescriptions'</span>);
 
 <span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
 <span class="hljs-keyword">var</span> GridList = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/grid-list/grid-list'</span>);
@@ -161,22 +168,14 @@
       user: <span class="hljs-literal">null</span>,
       userMetrics: <span class="hljs-literal">null</span>,
       graphData: <span class="hljs-literal">null</span>,
-      MetricDescriptions: {
-        <span class="hljs-string">"riskyAsset"</span>: <span class="hljs-string">"Stock Allocation"</span>,
-        <span class="hljs-string">"bond"</span>: <span class="hljs-string">"Bond Allocation"</span>,
-        <span class="hljs-string">"financialMean"</span>: <span class="hljs-string">"Financial Portfolio μ"</span>,
-        <span class="hljs-string">"financialSD"</span>: <span class="hljs-string">"Financial Portfolio σ"</span>,
-        <span class="hljs-string">"totalWealthMean"</span>: <span class="hljs-string">"Total Wealth Portfolio μ"</span>,
-        <span class="hljs-string">"totalWealthSD"</span>: <span class="hljs-string">"Total Wealth Portfolio σ"</span>,
-        <span class="hljs-string">"riskAversion"</span>: <span class="hljs-string">"Risk Aversion (1 - 5)"</span>,
-        <span class="hljs-string">"correlation"</span>: <span class="hljs-string">"Correlation of X to Market"</span>,
-        <span class="hljs-string">"maxUtility"</span>: <span class="hljs-string">"Maximum Achieveable Utility"</span>
-      }
+      MetricDescriptions: MetricDescriptions(<span class="hljs-keyword">this</span>.props.ticker)
     };
   },
+
   componentDidMount: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> userData= <span class="hljs-keyword">this</span>.props.user;
+    <span class="hljs-keyword">var</span> userData = <span class="hljs-keyword">this</span>.props.user;
     <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+
     $.ajax({
       type: <span class="hljs-string">'POST'</span>,
       url: <span class="hljs-string">'http://localhost:5000/portfolio'</span>,
@@ -186,9 +185,7 @@
         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> user.redirect == <span class="hljs-string">'string'</span>) {
           <span class="hljs-built_in">window</span>.location = user.redirect;
           <span class="hljs-keyword">return</span>;
-        }
-
-        <span class="hljs-keyword">if</span> (self.isMounted()) {
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (self.isMounted()) {
           self.setState({
             user: user,
             userMetrics: user.OI,
@@ -201,62 +198,95 @@
       }
     });
   },
-  handleDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">metric</span>) </span>{
 
+  handleDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">metric</span>) </span>{
     <span class="hljs-keyword">this</span>.refs.info.updateContent(metric);
     <span class="hljs-keyword">this</span>.refs.info.showDescription();
   },
+
   handleFormat: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, metric</span>) </span>{
-    <span class="hljs-keyword">if</span> (metric === <span class="hljs-string">'riskAversion'</span>) {
-      <span class="hljs-keyword">return</span> value;
-    }
+    <span class="hljs-keyword">if</span> (metric === <span class="hljs-string">'riskAversion'</span>) { <span class="hljs-keyword">return</span> value; }
 
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.round(<span class="hljs-number">100</span> * value.toFixed(<span class="hljs-number">2</span>)) + <span class="hljs-string">'%'</span>;
   },
 
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+  renderGridTiles: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> id = -<span class="hljs-number">1</span>;
-    <span class="hljs-keyword">var</span> gridTiles = _.map(<span class="hljs-keyword">this</span>.state.userMetrics, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, metric, user</span>) </span>{
+    <span class="hljs-keyword">var</span> gridTileList = _.map(<span class="hljs-keyword">this</span>.state.userMetrics, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, metric, user</span>) </span>{
       <span class="hljs-keyword">return</span> (
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">GridTile</span>
-        <span class="hljs-attribute">className</span>=<span class="hljs-value">"tile"</span>
-        <span class="hljs-attribute">title</span> = ""
-        <span class="hljs-attribute">key</span>=<span class="hljs-value">{++id}</span>
-        &gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"gridTitle"</span>&gt;</span>{metric === 'correlation' ? ('Correlation of ' + self.props.ticker + ' to Market') : self.state.MetricDescriptions[metric]}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"iconInfo"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">IconButton</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{self.handleDescription.bind(null,</span> <span class="hljs-attribute">metric</span>)}&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">DescriptionIcon</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"black"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">IconButton</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"metric animated flipInX"</span>&gt;</span>{self.handleFormat(value, metric)}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">GridTile</span>&gt;</span>
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">GridTile</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"tile"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{++id}</span> &gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"gridTitle"</span>&gt;</span>
+              {this.state.MetricDescriptions[metric].title}
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"iconInfo"</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">IconButton</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleDescription.bind(null,</span> <span class="hljs-attribute">metric</span>)}&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">DescriptionIcon</span> <span class="hljs-attribute">color</span>=<span class="hljs-value">"black"</span> /&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-title">IconButton</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"metric animated flipInX"</span>&gt;</span>
+              {this.handleFormat(value, metric)}
+            <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+
+          <span class="hljs-tag">&lt;/<span class="hljs-title">GridTile</span>&gt;</span>
         )</span>;
+    }.bind(<span class="hljs-keyword">this</span>));
+
+    <span class="hljs-keyword">return</span> gridTileList;
+  },
+
+  formatUtilityCurveData: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> utilityCurveData = <span class="hljs-keyword">this</span>.state.graphData.utilityCurve.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, i</span>) </span>{
+      <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> el; } 
+      <span class="hljs-keyword">if</span> (i % <span class="hljs-number">10</span> === <span class="hljs-number">0</span>) { <span class="hljs-keyword">return</span> el; }
     });
-    <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">this</span>.state.user ? gridTiles : <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">var</span> financialPortfolio = <span class="hljs-keyword">this</span>.state.graphData ? <span class="hljs-keyword">this</span>.state.graphData.financialPortfolio : <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">var</span> wealthPortfolio = <span class="hljs-keyword">this</span>.state.graphData ? <span class="hljs-keyword">this</span>.state.graphData.totalWealthPortfolio : <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">var</span> highestUtility = <span class="hljs-keyword">this</span>.state.graphData ? (_.map(<span class="hljs-keyword">this</span>.state.graphData.utilityCurve, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, i</span>) </span>{
-      <span class="hljs-keyword">if</span> (i === <span class="hljs-number">0</span>) {
-        <span class="hljs-keyword">return</span> el;
-      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i % <span class="hljs-number">10</span> === <span class="hljs-number">0</span>) {
-        <span class="hljs-keyword">return</span> el;
-      }
-    })) : <span class="hljs-literal">null</span>;
+
+    <span class="hljs-keyword">return</span> utilityCurveData;
+  },
+
+  renderGraph: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Graph</span> 
+        <span class="hljs-attribute">optimalPortfolio</span>=<span class="hljs-value">{[</span> [ <span class="hljs-attribute">this.state.userMetrics</span>['<span class="hljs-attribute">totalWealthSD</span>'] , <span class="hljs-attribute">this.state.userMetrics</span>['<span class="hljs-attribute">totalWealthMean</span>'] ] ]}
+        <span class="hljs-attribute">financialPortfolio</span>=<span class="hljs-value">{this.state.graphData.financialPortfolio}</span>
+        <span class="hljs-attribute">totalWealthPortfolio</span>=<span class="hljs-value">{this.state.graphData.totalWealthPortfolio}</span>
+        <span class="hljs-attribute">highestUtility</span>=<span class="hljs-value">{this.formatUtilityCurveData()}</span>
+        /&gt;</span>   
+      )</span>;
+  },
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> GridTiles = <span class="hljs-keyword">this</span>.state.user ? <span class="hljs-keyword">this</span>.renderGridTiles() : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">var</span> Graph = <span class="hljs-keyword">this</span>.state.graphData &amp;&amp; <span class="hljs-keyword">this</span>.state.userMetrics ? <span class="hljs-keyword">this</span>.renderGraph() : <span class="hljs-literal">null</span>;
+
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"investmentView"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"chart"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Your Optimal Financial Portfolio<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-        {this.state.graphData &amp;&amp; this.state.userMetrics ? <span class="hljs-tag">&lt;<span class="hljs-title">Graph</span> 
-        <span class="hljs-attribute">OptimalPortfolio</span>=<span class="hljs-value">{[</span> [ <span class="hljs-attribute">this.state.userMetrics</span>['<span class="hljs-attribute">totalWealthSD</span>'] , <span class="hljs-attribute">this.state.userMetrics</span>['<span class="hljs-attribute">totalWealthMean</span>'] ] ]}
-        <span class="hljs-attribute">financialPortfolio</span>=<span class="hljs-value">{financialPortfolio}</span>
-        <span class="hljs-attribute">totalWealthPortfolio</span>=<span class="hljs-value">{wealthPortfolio}</span>
-        <span class="hljs-attribute">highestUtility</span>=<span class="hljs-value">{highestUtility}</span>/&gt;</span> : null}
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"chart"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Your Optimal Financial Portfolio<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+
+          { Graph }
+
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"porfolioGrid"</span>&gt;</span>
+
           <span class="hljs-tag">&lt;<span class="hljs-title">Description</span> <span class="hljs-attribute">ticker</span>=<span class="hljs-value">{this.props.ticker}</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"info"</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">GridList</span> <span class="hljs-attribute">cols</span>=<span class="hljs-value">{3}</span> <span class="hljs-attribute">cellHeight</span>=<span class="hljs-value">{300}</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{width:</span> <span class="hljs-attribute">1000</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">1000</span>, <span class="hljs-attribute">overflowY:</span> '<span class="hljs-attribute">auto</span>'}} &gt;</span>
-            {user}
+
+          <span class="hljs-tag">&lt;<span class="hljs-title">GridList</span>
+            <span class="hljs-attribute">cols</span>=<span class="hljs-value">{3}</span>
+            <span class="hljs-attribute">cellHeight</span>=<span class="hljs-value">{300}</span>
+            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{width:</span> <span class="hljs-attribute">1000</span>, <span class="hljs-attribute">height:</span> <span class="hljs-attribute">1000</span>, <span class="hljs-attribute">overflowY:</span> '<span class="hljs-attribute">auto</span>'}}
+          &gt;</span>
+
+            { GridTiles }
+
           <span class="hljs-tag">&lt;/<span class="hljs-title">GridList</span>&gt;</span>
+
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
   }

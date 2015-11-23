@@ -85,6 +85,11 @@
                 </a>
               
                 
+                <a class="source" href="surveyQuestions.html">
+                  surveyQuestions.js
+                </a>
+              
+                
                 <a class="source" href="theme.html">
                   theme.js
                 </a>
@@ -138,7 +143,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*----------------------- DEPENDENCIES------------------------------*/</span>
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 <span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
@@ -147,10 +152,23 @@
 <span class="hljs-keyword">var</span> RaisedButton = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/raised-button'</span>);
 <span class="hljs-keyword">var</span> InputField = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./inputField.jsx'</span>);
 <span class="hljs-keyword">var</span> Portfolio = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./portfolio.jsx'</span>);
-<span class="hljs-keyword">var</span> Survey = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./survey.jsx'</span>);
+<span class="hljs-keyword">var</span> Survey = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./survey.jsx'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This is the user object which will be sent to the server
+on a request for a new portfolio.</p>
 
-<span class="hljs-comment">/*-----------USER OBJ---------*/</span>
-<span class="hljs-keyword">var</span> user = {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> user = {
   surveyResults: [],
   fractionOfWealth: <span class="hljs-number">0</span>,
   ticker: <span class="hljs-string">''</span>
@@ -167,7 +185,8 @@
       showTickerInput: <span class="hljs-literal">false</span>,
       showPortfolio: <span class="hljs-literal">false</span>,
       heading: <span class="hljs-string">'Calculate Your Financial Portfolio'</span>,
-      subHeading: <span class="hljs-string">'In just three steps, this tool will calculate your Optimal Portfolio according to Modern Portfolio Theory standards. Click the button to get started!'</span>,
+      subHeading: <span class="hljs-string">'In just three steps, this tool will calculate your Optimal Portfolio according to \
+                   Modern Portfolio Theory standards. Click the button to get started!'</span>,
     };
   },
   
@@ -194,13 +213,13 @@
         </li>
         
         
-        <li id="section-2">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>map from strings to numbers</p>
+              <p>Map from strings to numbers</p>
 
             </div>
             
@@ -212,7 +231,8 @@
       showRiskSurvey: <span class="hljs-literal">false</span>,
       showWealthSplit: <span class="hljs-literal">true</span>,
       heading: <span class="hljs-string">'How much of your money are you planning to invest?'</span>,
-      subHeading: <span class="hljs-string">'Cool, just two more questions to go. Please estimate what percentage of your total wealth you will be investing in financial assets and hit enter when you\'re done.'</span>
+      subHeading: <span class="hljs-string">'Cool, just two more questions to go. Please estimate what percentage of your total wealth \
+                   you will be investing in financial assets and hit enter when you\'re done.'</span>
     });
   },
 
@@ -222,7 +242,8 @@
       showWealthSplit: <span class="hljs-literal">false</span>,
       showTickerInput: <span class="hljs-literal">true</span>,
       heading: <span class="hljs-string">'What company do you work for?'</span>,
-      subHeading: <span class="hljs-string">'Great! Last question, we need to know what company you work for. Please enter the ticker for a publically traded company in the field below and hit enter when you\'re done.'</span>
+      subHeading: <span class="hljs-string">'Great! Last question, we need to know what company you work for. Please enter the ticker \
+                   for a publically traded company in the field below and hit enter when you\'re done.'</span>
     });
   },
 
@@ -242,7 +263,8 @@
             <span class="hljs-attribute">ref</span>=<span class="hljs-value">"risk-button"</span> 
             <span class="hljs-attribute">fullWidth</span>=<span class="hljs-value">{true}</span> 
             <span class="hljs-attribute">label</span>=<span class="hljs-value">"Start"</span> 
-            <span class="hljs-attribute">onTouchTap</span>=<span class="hljs-value">{this.showDialog}</span> /&gt;</span> 
+            <span class="hljs-attribute">onTouchTap</span>=<span class="hljs-value">{this.showDialog}</span>
+            /&gt;</span> 
             :
             null;
   },
@@ -252,7 +274,8 @@
             <span class="hljs-tag">&lt;<span class="hljs-title">InputField</span> 
             <span class="hljs-attribute">validate</span>=<span class="hljs-value">{true}</span> 
             <span class="hljs-attribute">floatingLabelText</span>=<span class="hljs-value">"Enter a Percentage"</span> 
-            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endSplit"</span> /&gt;</span>
+            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endSplit"</span>
+            /&gt;</span>
             :
             null;
   },
@@ -263,7 +286,8 @@
             <span class="hljs-attribute">numberField</span>=<span class="hljs-value">{false}</span>
             <span class="hljs-attribute">uppercase</span>=<span class="hljs-value">{true}</span>
             <span class="hljs-attribute">floatingLabelText</span>=<span class="hljs-value">"Enter Ticker Symbol"</span>
-            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endTickerInput"</span> /&gt;</span> 
+            <span class="hljs-attribute">eventName</span>=<span class="hljs-value">"endTickerInput"</span>
+            /&gt;</span> 
             :
             null;
   },
@@ -273,7 +297,8 @@
             <span class="hljs-tag">&lt;<span class="hljs-title">Portfolio</span> 
             <span class="hljs-attribute">heading</span>=<span class="hljs-value">{this.state.heading}</span> 
             <span class="hljs-attribute">ticker</span>=<span class="hljs-value">{user.ticker}</span> 
-            <span class="hljs-attribute">user</span>= {<span class="hljs-attribute">user</span>} /&gt;</span> 
+            <span class="hljs-attribute">user</span>= {<span class="hljs-attribute">user</span>}
+            /&gt;</span> 
             : 
             null;
   },
@@ -286,7 +311,7 @@
             <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{this.state.heading}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>{this.state.subHeading}<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
 
-            <span class="hljs-tag">&lt;<span class="hljs-title">Survey</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"riskSurvey"</span>/&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">Survey</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"riskSurvey"</span> /&gt;</span>
 
             {this.renderRiskSurvey()}
             {this.renderWealthSplit()}

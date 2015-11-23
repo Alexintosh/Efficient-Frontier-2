@@ -85,6 +85,11 @@
                 </a>
               
                 
+                <a class="source" href="surveyQuestions.html">
+                  surveyQuestions.js
+                </a>
+              
+                
                 <a class="source" href="theme.html">
                   theme.js
                 </a>
@@ -138,8 +143,7 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*-------------------------DEPENDENCIES-----------------------------*/</span>
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 
@@ -167,21 +171,29 @@
             
             <div class="content"><div class='highlight'><pre>Highcharts.Highcharts.setOptions(Theme);
 
+<span class="hljs-keyword">var</span> propTypes: {
+  financialPortfolio: React.PropTypes.array.isRequired,
+  totalWealthPortfolio: React.PropTypes.array.isRequired,
+  highestUtility: React.PropTypes.array.isRequired,
+  optimalPortfolio: React.PropTypes.array.isRequired,
+};
+
 <span class="hljs-keyword">var</span> Graph = React.createClass({
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> p = <span class="hljs-keyword">this</span>.props;
     <span class="hljs-keyword">return</span> {
-      config: Config(p.financialPortfolio, p.totalWealthPortfolio, 
-                     p.highestUtility, p.OptimalPortfolio)
+      config: Config(<span class="hljs-keyword">this</span>.props.financialPortfolio, <span class="hljs-keyword">this</span>.props.totalWealthPortfolio, 
+                     <span class="hljs-keyword">this</span>.props.highestUtility, <span class="hljs-keyword">this</span>.props.optimalPortfolio)
     };
   },
 
   render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> (
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Highcharts</span> <span class="hljs-attribute">config</span>=<span class="hljs-value">{this.state.config}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">Highcharts</span>&gt;</span>
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Highcharts</span> <span class="hljs-attribute">config</span>=<span class="hljs-value">{this.state.config}</span> /&gt;</span>
       )</span>;
   }
 });
+
+Graph.propTypes = propTypes;
 
 <span class="hljs-built_in">module</span>.exports = Graph;</pre></div></div>
             

@@ -1,3 +1,5 @@
+// ## Setup Mongoose connection  with MongoDB
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1');
 

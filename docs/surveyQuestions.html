@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>stocks.js</title>
+  <title>surveyQuestions.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -128,7 +128,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>stocks.js</h1>
+                  <h1>surveyQuestions.js</h1>
               </div>
           </li>
         
@@ -140,22 +140,53 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <h2 id="setup-mongoose-models-for-stocks-">Setup mongoose models for stocks.</h2>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*******************************************************
+              RISK SURVEY QUESTIONS
+*******************************************************/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Required by <a href="./../components/survey.html">survey.jsx</a></p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
-<span class="hljs-keyword">var</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./config'</span>);
-
-<span class="hljs-keyword">var</span> stockSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
-  ticker: <span class="hljs-built_in">String</span>,
-  correlation: <span class="hljs-built_in">Number</span>
-});
-
-<span class="hljs-keyword">var</span> Stock = mongoose.model(<span class="hljs-string">'Stock'</span>, stockSchema);
-
-<span class="hljs-built_in">module</span>.exports.schema = stockSchema;
-<span class="hljs-built_in">module</span>.exports.model = Stock;</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports  = [
+  {
+    name: <span class="hljs-string">'Question1'</span>,
+    heading: <span class="hljs-string">'With which types of savings or investments are you most comfortable?'</span>,
+    options: [<span class="hljs-string">'Money market accounts.'</span>, <span class="hljs-string">'Government savings bonds.'</span>, <span class="hljs-string">'Corporate bonds or bond funds.'</span>, <span class="hljs-string">'Stocks or stock funds.'</span>]
+  },
+  {
+    name: <span class="hljs-string">'Question2'</span>,
+    heading: <span class="hljs-string">'After you make a savings or investment decision, you feel:'</span>,
+    options: [<span class="hljs-string">'Worried.'</span>, <span class="hljs-string">'Satisfied.'</span>, <span class="hljs-string">'Hopeful.'</span>, <span class="hljs-string">'Invigorated.'</span>]
+  },
+  {
+    name: <span class="hljs-string">'Question3'</span>,
+    heading: <span class="hljs-string">'Say you invest $20,000. Each of the following answers shows the range of returns that your investment may experience after just one year, based on the underlying holdings. Which investment would you be most comfortable holding?'</span>,
+    options: [<span class="hljs-string">'$21,000 – $19,000.'</span>, <span class="hljs-string">'$23,000 – $17,000.'</span>, <span class="hljs-string">'$27,000 – $13,000.'</span>, <span class="hljs-string">'$27,000 – $13,000.'</span>]
+  },
+  {
+    name: <span class="hljs-string">'Question4'</span>,
+    heading: <span class="hljs-string">'For the last five years, your investment has returned an average 10% per year—in line with other similar investments. However, it loses 20% over the next year. What do you do?'</span>,
+    options: [<span class="hljs-string">'Sell all of the investment.'</span>, <span class="hljs-string">'Sell a portion of the investment.'</span>, <span class="hljs-string">'Nothing.'</span>, <span class="hljs-string">'Buy more of the same investment.'</span>]
+  },
+  {
+    name: <span class="hljs-string">'Question5'</span>,
+    heading: <span class="hljs-string">'Which phrase best describes your take on life?'</span>,
+    options: [<span class="hljs-string">'Proceed with caution--take no unnecessary risks.'</span>, <span class="hljs-string">'Take small, measurable risks and patiently pursue your dreams.'</span>, <span class="hljs-string">'Prepare well, but follow your goals without fear.'</span>, <span class="hljs-string">'No hesitation—-go for it!'</span>]
+  }
+];</pre></div></div>
             
         </li>
         

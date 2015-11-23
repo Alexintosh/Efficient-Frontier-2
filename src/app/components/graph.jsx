@@ -1,4 +1,3 @@
-
 /*-------------------------DEPENDENCIES-----------------------------*/
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -15,20 +14,28 @@ var Config = require('../imports/graphconfig');
 // Set the styling for the Graph
 Highcharts.Highcharts.setOptions(Theme);
 
+var propTypes: {
+  financialPortfolio: React.PropTypes.array.isRequired,
+  totalWealthPortfolio: React.PropTypes.array.isRequired,
+  highestUtility: React.PropTypes.array.isRequired,
+  optimalPortfolio: React.PropTypes.array.isRequired,
+};
+
 var Graph = React.createClass({
   getInitialState: function() {
-    var p = this.props;
     return {
-      config: Config(p.financialPortfolio, p.totalWealthPortfolio, 
-                     p.highestUtility, p.OptimalPortfolio)
+      config: Config(this.props.financialPortfolio, this.props.totalWealthPortfolio, 
+                     this.props.highestUtility, this.props.optimalPortfolio)
     };
   },
 
   render: function() {
     return (
-        <Highcharts config={this.state.config}></Highcharts>
+        <Highcharts config={this.state.config} />
       );
   }
 });
+
+Graph.propTypes = propTypes;
 
 module.exports = Graph;

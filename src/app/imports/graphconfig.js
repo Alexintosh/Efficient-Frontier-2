@@ -1,6 +1,8 @@
 /*******************************************************
                   CONFIG FOR HIGHCHARTS
 *******************************************************/
+
+// Required by [graph.jsx](./../components/graph.html)
 module.exports = function(financialPortfolio, totalWealthPortfolio, highestUtility, OptimalPortfolio) {
   return {
 

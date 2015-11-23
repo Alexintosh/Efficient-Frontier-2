@@ -1,6 +1,8 @@
 /*******************************************************
                   THEME FOR HIGHCHARTS
 *******************************************************/
+
+// Required by [graph.jsx](./../components/graph.html)
 module.exports = {
  colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
     "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
@@ -129,7 +131,6 @@ module.exports = {
     }
  },
 
- // scroll charts
  rangeSelector: {
     buttonTheme: {
        fill: '#505053',
@@ -191,7 +192,6 @@ module.exports = {
     trackBorderColor: '#404043'
  },
 
- // special colors for some of the
  legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
  background2: '#505053',
  dataLabelsColor: '#B0B0B3',

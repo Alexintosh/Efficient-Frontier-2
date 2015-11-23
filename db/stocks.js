@@ -1,3 +1,4 @@
+// ## Setup mongoose models for stocks.
 var mongoose = require('mongoose');
 var db = require('./config');
 

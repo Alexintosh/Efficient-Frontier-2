@@ -3,6 +3,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var $ = require('jquery');
+var request = require('request');
+var MetricDescriptions = require('../imports/metricdescriptions');
 
 /*----------------------REACT COMPONENTS-----------------------------*/
 var GridList = require('material-ui/lib/grid-list/grid-list');
@@ -21,22 +23,14 @@ var PortfolioView = React.createClass({
       user: null,
       userMetrics: null,
       graphData: null,
-      MetricDescriptions: {
-        "riskyAsset": "Stock Allocation",
-        "bond": "Bond Allocation",
-        "financialMean": "Financial Portfolio μ",
-        "financialSD": "Financial Portfolio σ",
-        "totalWealthMean": "Total Wealth Portfolio μ",
-        "totalWealthSD": "Total Wealth Portfolio σ",
-        "riskAversion": "Risk Aversion (1 - 5)",
-        "correlation": "Correlation of X to Market",
-        "maxUtility": "Maximum Achieveable Utility"
-      }
+      MetricDescriptions: MetricDescriptions(this.props.ticker)
     };
   },
+
   componentDidMount: function() {
-    var userData= this.props.user;
+    var userData = this.props.user;
     var self = this;
+
     $.ajax({
       type: 'POST',
       url: 'http://localhost:5000/portfolio',
@@ -46,9 +40,7 @@ var PortfolioView = React.createClass({
         if (typeof user.redirect == 'string') {
           window.location = user.redirect;
           return;
-        }
-
-        if (self.isMounted()) {
+        } else if (self.isMounted()) {
           self.setState({
             user: user,
             userMetrics: user.OI,
@@ -61,62 +53,91 @@ var PortfolioView = React.createClass({
       }
     });
   },
-  handleDescription: function(metric) {
 
+  handleDescription: function(metric) {
     this.refs.info.updateContent(metric);
     this.refs.info.showDescription();
   },
+
   handleFormat: function(value, metric) {
-    if (metric === 'riskAversion') {
-      return value;
-    }
+    if (metric === 'riskAversion') { return value; }
 
     return Math.round(100 * value.toFixed(2)) + '%';
   },
 
-  render: function() {
-    var self = this;
+  renderGridTiles: function() {
     var id = -1;
-    var gridTiles = _.map(this.state.userMetrics, function(value, metric, user) {
+    var gridTileList = _.map(this.state.userMetrics, function(value, metric, user) {
       return (
-        <GridTile
-        className="tile"
-        title = ""
-        key={++id}
-        >
-          <div className="gridTitle">{metric === 'correlation' ? ('Correlation of ' + self.props.ticker + ' to Market') : self.state.MetricDescriptions[metric]}</div>
-          <div className="iconInfo"><IconButton onClick={self.handleDescription.bind(null, metric)}><DescriptionIcon color="black"/></IconButton></div>
-          <span className="metric animated flipInX">{self.handleFormat(value, metric)}</span>
-        </GridTile>
+          <GridTile className="tile" key={++id} >
+
+            <div className="gridTitle"> {this.state.MetricDescriptions[metric].title} </div>
+
+            <div className="iconInfo">
+              <IconButton onClick={this.handleDescription.bind(null, metric)}>
+                <DescriptionIcon color="black" />
+              </IconButton>
+            </div>
+
+            <span className="metric animated flipInX"> {this.handleFormat(value, metric)} </span>
+
+          </GridTile>
         );
+    }.bind(this));
+
+    return gridTileList;
+  },
+
+  formatUtilityCurveData: function() {
+    var utilityCurveData = this.state.graphData.utilityCurve.map(function(el, i) {
+      if (i === 0) { return el; } 
+      if (i % 10 === 0) { return el; }
     });
-    var user = this.state.user ? gridTiles : null;
-    var financialPortfolio = this.state.graphData ? this.state.graphData.financialPortfolio : null;
-    var wealthPortfolio = this.state.graphData ? this.state.graphData.totalWealthPortfolio : null;
-    var highestUtility = this.state.graphData ? (_.map(this.state.graphData.utilityCurve, function(el, i) {
-      if (i === 0) {
-        return el;
-      } else if(i % 10 === 0) {
-        return el;
-      }
-    })) : null;
+
+    return utilityCurveData;
+  },
+
+  renderGraph: function() {
+    return (
+        <Graph 
+        optimalPortfolio={[ [ this.state.userMetrics['totalWealthSD'] , this.state.userMetrics['totalWealthMean'] ] ]}
+        financialPortfolio={this.state.graphData.financialPortfolio}
+        totalWealthPortfolio={this.state.graphData.totalWealthPortfolio}
+        highestUtility={this.formatUtilityCurveData()}
+        />   
+      );
+  },
+
+  render: function() {
+    var GridTiles = this.state.user ? this.renderGridTiles() : null;
+    var Graph = this.state.graphData && this.state.userMetrics ? this.renderGraph() : null;
+
     return (
       <div className="investmentView">
-      <div id="chart">
-        <h1>Your Optimal Financial Portfolio</h1>
-        {this.state.graphData && this.state.userMetrics ? <Graph 
-        OptimalPortfolio={[ [ this.state.userMetrics['totalWealthSD'] , this.state.userMetrics['totalWealthMean'] ] ]}
-        financialPortfolio={financialPortfolio}
-        totalWealthPortfolio={wealthPortfolio}
-        highestUtility={highestUtility}/> : null}
-      </div>
+
+        <div id="chart">
+          <h1>Your Optimal Financial Portfolio</h1>
+
+          { Graph }
+
+        </div>
 
         <div className="porfolioGrid">
+
           <Description ticker={this.props.ticker} ref="info" />
-          <GridList cols={3} cellHeight={300} style={{width: 1000, height: 1000, overflowY: 'auto'}} >
-            {user}
+
+          <GridList
+            cols={3}
+            cellHeight={300}
+            style={{width: 1000, height: 1000, overflowY: 'auto'}}
+          >
+
+            { GridTiles }
+
           </GridList>
+
         </div>
+
       </div>
     );
   }

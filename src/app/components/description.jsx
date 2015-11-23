@@ -10,15 +10,25 @@ var FlatButton = require('material-ui/lib/flat-button');
 /*********************************************************************
                           COMPONENT BODY
 **********************************************************************/
+var propTypes = {
+  ticker: React.PropTypes.string.isRequired
+};
+
 var Description = React.createClass({
   getInitialState: function() {
     return MetricDescriptions(this.props.ticker);
   },
 
+  // Show pop-up modal with information about the metric that was clicked on.
   showDescription: function() {
     this.refs.info.show();
   },
 
+  hideModal: function() {
+    this.refs.info.dismiss();
+  },
+  
+  // Set the state to the metric that was clicked on.
   updateContent: function(metric) {
     var f = function() {
       return {
@@ -27,12 +37,7 @@ var Description = React.createClass({
       }
     }.bind(this);
 
-    // Set the state to metric that was clicked on in the Portfolio
     this.setState(f());
-  },
-
-  hideModal: function() {
-    this.refs.info.dismiss();
   },
 
   render: function() {
@@ -46,7 +51,8 @@ var Description = React.createClass({
             label="Okay"
             secondary={true}
             onTouchTap={this.hideModal}
-            key={0} />
+            key={0}
+            />
           ]}
         >
           
@@ -56,5 +62,7 @@ var Description = React.createClass({
       );
   }
 });
+
+Description.propTypes = propTypes;
 
 module.exports = Description;

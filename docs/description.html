@@ -85,6 +85,11 @@
                 </a>
               
                 
+                <a class="source" href="surveyQuestions.html">
+                  surveyQuestions.js
+                </a>
+              
+                
                 <a class="source" href="theme.html">
                   theme.js
                 </a>
@@ -150,22 +155,14 @@
 <span class="hljs-comment">/*********************************************************************
                           COMPONENT BODY
 **********************************************************************/</span>
+<span class="hljs-keyword">var</span> propTypes = {
+  ticker: React.PropTypes.string.isRequired
+};
+
 <span class="hljs-keyword">var</span> Description = React.createClass({
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> MetricDescriptions(<span class="hljs-keyword">this</span>.props.ticker);
-  },
-
-  showDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">this</span>.refs.info.show();
-  },
-
-  updateContent: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">metric</span>) </span>{
-    <span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">return</span> {
-        title: <span class="hljs-keyword">this</span>.state[metric].title,
-        description: <span class="hljs-keyword">this</span>.state[metric].content  
-      }
-    }.bind(<span class="hljs-keyword">this</span>);</pre></div></div>
+  },</pre></div></div>
             
         </li>
         
@@ -176,15 +173,40 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Set the state to metric that was clicked on in the Portfolio</p>
+              <p>Show pop-up modal with information about the metric that was clicked on.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    this.setState(f());
+            <div class="content"><div class='highlight'><pre>  showDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.info.show();
   },
 
-  hideModal: function() {
-    this.refs.info.dismiss();
+  hideModal: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">this</span>.refs.info.dismiss();
+  },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Set the state to the metric that was clicked on.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  updateContent: function(metric) {
+    var f = function() {
+      return {
+        title: this.state[metric].title,
+        description: this.state[metric].content  
+      }
+    }.bind(this);
+
+    this.setState(f());
   },
 
   render: function() {
@@ -198,7 +220,8 @@
             label="Okay"
             secondary={true}
             onTouchTap={this.hideModal}
-            key={0} /&gt;
+            key={0}
+            /&gt;
           ]}
         &gt;
           
@@ -208,6 +231,8 @@
       );
   }
 });
+
+Description.propTypes = propTypes;
 
 module.exports = Description;</pre></div></div>
             
