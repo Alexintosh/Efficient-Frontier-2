@@ -10,11 +10,11 @@ var FlatButton = require('material-ui/lib/flat-button');
 /*********************************************************************
                           COMPONENT BODY
 **********************************************************************/
-var propTypes = {
-  ticker: React.PropTypes.string.isRequired
-};
-
 var Description = React.createClass({
+  propTypes: {
+    ticker: React.PropTypes.string.isRequired
+  },
+
   getInitialState: function() {
     return MetricDescriptions(this.props.ticker);
   },
@@ -62,7 +62,5 @@ var Description = React.createClass({
       );
   }
 });
-
-Description.propTypes = propTypes;
 
 module.exports = Description;

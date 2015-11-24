@@ -2,8 +2,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var _ = require('underscore');
-var $ = require('jquery');
-var request = require('request');
 var MetricDescriptions = require('../imports/metricdescriptions');
 
 /*----------------------REACT COMPONENTS-----------------------------*/
@@ -17,7 +15,14 @@ var Graph = require('./graph.jsx');
 /*********************************************************************
                           COMPONENT BODY
 **********************************************************************/
+
 var PortfolioView = React.createClass({
+  propTypes: {
+    heading: React.PropTypes.string.isRequired,
+    ticker: React.PropTypes.string.isRequired,
+    user: React.PropTypes.object.isRequired
+  },
+
   getInitialState: function() {
     return {
       user: null,
@@ -29,29 +34,32 @@ var PortfolioView = React.createClass({
 
   componentDidMount: function() {
     var userData = this.props.user;
-    var self = this;
+    // Make request for a user's portfolio data.
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:5000/portfolio');
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:5000/portfolio',
-      contentType: 'application/json',
-      data: JSON.stringify(userData),
-      success: function(user) {
-        if (typeof user.redirect == 'string') {
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 400) {
+        var user = JSON.parse(xhr.responseText);
+        if (user.redirect) {
           window.location = user.redirect;
           return;
-        } else if (self.isMounted()) {
-          self.setState({
+        } else if (this.isMounted()) {
+
+          this.setState({
             user: user,
             userMetrics: user.OI,
             graphData: user.graphData
           });
+
         }
-      },
-      error: function(err) {
-        console.error(err);
+      } else {
+        console.error('There was an error in the request.');
       }
-    });
+    }.bind(this);
+
+    xhr.send(JSON.stringify(userData));
   },
 
   handleDescription: function(metric) {
@@ -61,7 +69,7 @@ var PortfolioView = React.createClass({
 
   handleFormat: function(value, metric) {
     if (metric === 'riskAversion') { return value; }
-
+    
     return Math.round(100 * value.toFixed(2)) + '%';
   },
 

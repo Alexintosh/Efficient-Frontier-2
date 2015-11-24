@@ -8,15 +8,15 @@ var TextField = require('material-ui/lib/text-field');
 /*********************************************************************
                           COMPONENT BODY
 **********************************************************************/
-var propTypes = {
-  numberField: React.PropTypes.bool,
-  validate: React.PropTypes.bool,
-  uppercase: React.PropTypes.bool,
-  floatingLabelText: React.PropTypes.string.isRequired,
-  eventName: React.PropTypes.string.isRequired
-};
-
 var InputField = React.createClass({
+  propTypes: {
+    numberField: React.PropTypes.bool,
+    validate: React.PropTypes.bool,
+    uppercase: React.PropTypes.bool,
+    floatingLabelText: React.PropTypes.string.isRequired,
+    eventName: React.PropTypes.string.isRequired
+  },
+
   getDefaultProps: function() {
     return {
       numberField: true
@@ -86,7 +86,5 @@ var InputField = React.createClass({
       );
   }
 });
-
-InputField.propTypes = propTypes;
 
 module.exports = InputField;

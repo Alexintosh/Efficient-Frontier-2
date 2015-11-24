@@ -14,14 +14,14 @@ var Config = require('../imports/graphconfig');
 // Set the styling for the Graph
 Highcharts.Highcharts.setOptions(Theme);
 
-var propTypes: {
-  financialPortfolio: React.PropTypes.array.isRequired,
-  totalWealthPortfolio: React.PropTypes.array.isRequired,
-  highestUtility: React.PropTypes.array.isRequired,
-  optimalPortfolio: React.PropTypes.array.isRequired,
-};
-
 var Graph = React.createClass({
+  propTypes: {
+    financialPortfolio: React.PropTypes.array.isRequired,
+    totalWealthPortfolio: React.PropTypes.array.isRequired,
+    highestUtility: React.PropTypes.array.isRequired,
+    optimalPortfolio: React.PropTypes.array.isRequired,
+  },
+
   getInitialState: function() {
     return {
       config: Config(this.props.financialPortfolio, this.props.totalWealthPortfolio, 
@@ -35,7 +35,5 @@ var Graph = React.createClass({
       );
   }
 });
-
-Graph.propTypes = propTypes;
 
 module.exports = Graph;

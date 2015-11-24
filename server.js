@@ -1,5 +1,4 @@
 // ## Dependencies
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var http = require("http");
@@ -14,6 +13,7 @@ app.use('/', express.static(__dirname + '/build'));
 
 // Static folder for serving documentation
 app.use('/documentation', express.static(__dirname + '/docs'));
+
 
 // ## Routes
 

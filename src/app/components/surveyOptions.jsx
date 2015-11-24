@@ -10,6 +10,15 @@ var RadioButton = require('material-ui/lib/radio-button');
                           COMPONENT BODY
 **********************************************************************/
 var surveyOptions = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    q1Label: React.PropTypes.string.isRequired,
+    q2Label: React.PropTypes.string.isRequired,
+    q3Label: React.PropTypes.string.isRequired,
+    q4Label: React.PropTypes.string.isRequired,
+    marginBottom: React.PropTypes.number
+  },
+  
   getDefaultProps: function() {
     return {
       marginBottom: 16

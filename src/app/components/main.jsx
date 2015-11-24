@@ -91,8 +91,8 @@ var Main = React.createClass({
     return  this.state.showRiskSurvey ?
             <RaisedButton 
             ref="risk-button" 
-            fullWidth={true} 
-            label="Start" 
+            fullWidth={true}
+            label="Start"
             onTouchTap={this.showDialog}
             /> 
             :
