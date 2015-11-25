@@ -1,7 +1,10 @@
 // ## Setup Mongoose connection  with MongoDB
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1');
+
+// Currently configured for deployment. Change to this for development: 
+// ```mongoose.connect('mongodb://127.0.0.1');```
+mongoose.connect(process.env.MONGOLAB_URI);
 
 var db = mongoose.connection;
 
