@@ -6,4 +6,4 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('prod', ['build', 'compress']);
+gulp.task('prod', ['compress']);
