@@ -65,6 +65,11 @@
                 </a>
               
                 
+                <a class="source" href="spinner.html">
+                  spinner.jsx
+                </a>
+              
+                
                 <a class="source" href="survey.html">
                   survey.jsx
                 </a>
@@ -150,6 +155,7 @@
 <span class="hljs-keyword">var</span> app = express();
 <span class="hljs-keyword">var</span> helpers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils/helpers'</span>);
 <span class="hljs-keyword">var</span> requestHandlers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./utils/requesthandlers'</span>);
+<span class="hljs-keyword">var</span> PORT = process.env.PORT || <span class="hljs-number">8080</span>;
 
 app.use(bodyParser.json());</pre></div></div>
             
@@ -312,7 +318,9 @@ app.use(bodyParser.json());</pre></div></div>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>app.listen(process.env.PORT || <span class="hljs-number">8080</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>app.listen(PORT, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Running on port '</span>, PORT);
+});</pre></div></div>
             
         </li>
         

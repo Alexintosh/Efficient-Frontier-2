@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>graph.jsx</title>
+  <title>spinner.jsx</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -133,7 +133,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>graph.jsx</h1>
+                  <h1>spinner.jsx</h1>
               </div>
           </li>
         
@@ -153,52 +153,32 @@
 <span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 
 <span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
-<span class="hljs-keyword">var</span> Highcharts = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-highcharts/dist/bundle/highcharts'</span>);
-<span class="hljs-keyword">var</span> Theme = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../imports/theme'</span>);
-<span class="hljs-keyword">var</span> Config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../imports/graphconfig'</span>);
 
 <span class="hljs-comment">/*********************************************************************
                           COMPONENT BODY
-**********************************************************************/</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Set the styling for the Graph</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>Highcharts.Highcharts.setOptions(Theme);
-
-<span class="hljs-keyword">var</span> Graph = React.createClass({
-  propTypes: {
-    financialPortfolio: React.PropTypes.array.isRequired,
-    totalWealthPortfolio: React.PropTypes.array.isRequired,
-    highestUtility: React.PropTypes.array.isRequired,
-    optimalPortfolio: React.PropTypes.array.isRequired,
-  },
-
-  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> {
-      config: Config(<span class="hljs-keyword">this</span>.props.financialPortfolio, <span class="hljs-keyword">this</span>.props.totalWealthPortfolio, 
-                     <span class="hljs-keyword">this</span>.props.highestUtility, <span class="hljs-keyword">this</span>.props.optimalPortfolio)
-    };
-  },
-
+**********************************************************************/</span>
+<span class="hljs-keyword">var</span> Spinner = React.createClass({
   render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> (
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Highcharts</span> <span class="hljs-attribute">config</span>=<span class="hljs-value">{this.state.config}</span> /&gt;</span>
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle"</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle1 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle2 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle3 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle4 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle5 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle6 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle7 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle8 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle9 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle10 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle11 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+           <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"sk-circle12 sk-child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
       )</span>;
   }
 });
 
-<span class="hljs-built_in">module</span>.exports = Graph;</pre></div></div>
+<span class="hljs-built_in">module</span>.exports = Spinner;</pre></div></div>
             
         </li>
         

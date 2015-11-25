@@ -65,6 +65,11 @@
                 </a>
               
                 
+                <a class="source" href="spinner.html">
+                  spinner.jsx
+                </a>
+              
+                
                 <a class="source" href="survey.html">
                   survey.jsx
                 </a>
@@ -156,11 +161,11 @@
 <span class="hljs-keyword">var</span> DescriptionIcon = <span class="hljs-built_in">require</span>(<span class="hljs-string">'material-ui/lib/svg-icons/action/description'</span>);
 <span class="hljs-keyword">var</span> Description = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./description.jsx'</span>);
 <span class="hljs-keyword">var</span> Graph = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./graph.jsx'</span>);
+<span class="hljs-keyword">var</span> Spinner = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./spinner.jsx'</span>);
 
 <span class="hljs-comment">/*********************************************************************
                           COMPONENT BODY
 **********************************************************************/</span>
-
 <span class="hljs-keyword">var</span> PortfolioView = React.createClass({
   propTypes: {
     heading: React.PropTypes.string.isRequired,
@@ -170,6 +175,7 @@
 
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> {
+      loading: <span class="hljs-literal">true</span>,
       user: <span class="hljs-literal">null</span>,
       userMetrics: <span class="hljs-literal">null</span>,
       graphData: <span class="hljs-literal">null</span>,
@@ -194,7 +200,7 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
-    xhr.open(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'http://shrouded-wave-6379.herokuapp.com/portfolio'</span>);
+    xhr.open(<span class="hljs-string">'POST'</span>, <span class="hljs-built_in">window</span>.location.origin + <span class="hljs-string">'/portfolio'</span>);
     xhr.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'application/json'</span>);
 
     xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -206,6 +212,7 @@
         } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isMounted()) {
 
           <span class="hljs-keyword">this</span>.setState({
+            loading: <span class="hljs-literal">false</span>,
             user: user,
             userMetrics: user.OI,
             graphData: user.graphData
@@ -276,10 +283,27 @@
 
   render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> GridTiles = <span class="hljs-keyword">this</span>.state.user ? <span class="hljs-keyword">this</span>.renderGridTiles() : <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">var</span> Graph = <span class="hljs-keyword">this</span>.state.graphData &amp;&amp; <span class="hljs-keyword">this</span>.state.userMetrics ? <span class="hljs-keyword">this</span>.renderGraph() : <span class="hljs-literal">null</span>;
+    <span class="hljs-keyword">var</span> Graph = <span class="hljs-keyword">this</span>.state.graphData &amp;&amp; <span class="hljs-keyword">this</span>.state.userMetrics ? <span class="hljs-keyword">this</span>.renderGraph() : <span class="hljs-literal">null</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Show spinner until Ajax request returns.</p>
 
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"investmentView"</span>&gt;</span>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.state.loading) {
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Spinner</span> /&gt;</span>
+    }
+
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"investmentView"</span>&gt;</span>
 
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"chart"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Your Optimal Financial Portfolio<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>

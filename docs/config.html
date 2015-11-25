@@ -65,6 +65,11 @@
                 </a>
               
                 
+                <a class="source" href="spinner.html">
+                  spinner.jsx
+                </a>
+              
+                
                 <a class="source" href="survey.html">
                   survey.jsx
                 </a>
@@ -145,7 +150,8 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);</pre></div></div>
+<span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">var</span> url = process.env.MONGOLAB_URI || <span class="hljs-string">'mongodb://127.0.0.1'</span>;</pre></div></div>
             
         </li>
         
@@ -161,7 +167,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>mongoose.connect(process.env.MONGOLAB_URI);
+            <div class="content"><div class='highlight'><pre>mongoose.connect(url);
 
 <span class="hljs-keyword">var</span> db = mongoose.connection;
 

@@ -56,6 +56,9 @@
 // #### [portfolio.jsx](./portfolio.html)
 // 4th & Final Stage: Optimal Portfolio Rendering
 
+// #### [spinner.jsx](./spinner.html)
+// Child of [portfolio.jsx](./portfolio.html), displays loading indicator while waiting for request to /portfolio
+
 // #### [graph.jsx](./graph.html)
 // Child of [portfolio.jsx](./portfolio.html), renders portfolio graph
 
