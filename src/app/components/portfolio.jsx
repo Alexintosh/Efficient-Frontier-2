@@ -36,7 +36,7 @@ var PortfolioView = React.createClass({
     var userData = this.props.user;
     // Make request for a user's portfolio data.
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:5000/portfolio');
+    xhr.open('POST', 'http://shrouded-wave-6379.herokuapp.com/portfolio');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function() {
