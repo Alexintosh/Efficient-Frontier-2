@@ -129,6 +129,7 @@ var PortfolioView = React.createClass({
 
     return (
       <div className="investmentView">
+      <Description ticker={this.props.ticker} ref="info" />
 
         <div id="chart">
           <h1>Your Optimal Financial Portfolio</h1>
@@ -137,9 +138,8 @@ var PortfolioView = React.createClass({
 
         </div>
 
-        <div className="porfolioGrid">
+        <div id="portfolioGrid">
 
-          <Description ticker={this.props.ticker} ref="info" />
 
           <GridList
             cols={3}

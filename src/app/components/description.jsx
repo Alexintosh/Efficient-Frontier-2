@@ -45,7 +45,7 @@ var Description = React.createClass({
         <Dialog title={this.state.title}
           ref="info"
           autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent={false}
           actions={[
             <FlatButton
             label="Okay"

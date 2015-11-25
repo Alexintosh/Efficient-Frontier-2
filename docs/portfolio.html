@@ -304,6 +304,7 @@
 
     return (
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"investmentView"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Description</span> <span class="hljs-attribute">ticker</span>=<span class="hljs-value">{this.props.ticker}</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"info"</span> /&gt;</span>
 
         <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"chart"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Your Optimal Financial Portfolio<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
@@ -312,9 +313,8 @@
 
         <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"porfolioGrid"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"portfolioGrid"</span>&gt;</span>
 
-          <span class="hljs-tag">&lt;<span class="hljs-title">Description</span> <span class="hljs-attribute">ticker</span>=<span class="hljs-value">{this.props.ticker}</span> <span class="hljs-attribute">ref</span>=<span class="hljs-value">"info"</span> /&gt;</span>
 
           <span class="hljs-tag">&lt;<span class="hljs-title">GridList</span>
             <span class="hljs-attribute">cols</span>=<span class="hljs-value">{3}</span>

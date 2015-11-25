@@ -51,10 +51,18 @@ span.metric {
   color: #31E14E;
 }
 
-div.investmentView {
+div#chart {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -15%);
+  height: 400px;
+  width: 1000px;
+  text-align: center;
+}
+div#portfolioGrid {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 42%);
 }
 
 div.tile {
@@ -85,13 +93,6 @@ div.iconInfo {
 
 div.iconInfo:hover {
   cursor: pointer;
-}
-
-#chart {
-  margin-bottom: 70px;
-  height: 400px;
-  width: 1000px;
-  text-align: center;
 }
 
 #chart h1 {
