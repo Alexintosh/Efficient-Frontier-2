@@ -5,6 +5,7 @@ var http = require("http");
 var app = express();
 var helpers = require('./utils/helpers');
 var requestHandlers = require('./utils/requesthandlers');
+var PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
@@ -47,4 +48,6 @@ app.get('/*', function(req, res) {
 });
 
 // ** Start App **
-app.listen(process.env.PORT || 8080);
+app.listen(PORT, function() {
+  console.log('Running on port ', PORT);
+});

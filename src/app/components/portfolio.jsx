@@ -11,11 +11,11 @@ var IconButton = require('material-ui/lib/icon-button');
 var DescriptionIcon = require('material-ui/lib/svg-icons/action/description');
 var Description = require('./description.jsx');
 var Graph = require('./graph.jsx');
+var Spinner = require('./spinner.jsx');
 
 /*********************************************************************
                           COMPONENT BODY
 **********************************************************************/
-
 var PortfolioView = React.createClass({
   propTypes: {
     heading: React.PropTypes.string.isRequired,
@@ -25,6 +25,7 @@ var PortfolioView = React.createClass({
 
   getInitialState: function() {
     return {
+      loading: true,
       user: null,
       userMetrics: null,
       graphData: null,
@@ -36,7 +37,7 @@ var PortfolioView = React.createClass({
     var userData = this.props.user;
     // Make request for a user's portfolio data.
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://shrouded-wave-6379.herokuapp.com/portfolio');
+    xhr.open('POST', window.location.origin + '/portfolio');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function() {
@@ -48,6 +49,7 @@ var PortfolioView = React.createClass({
         } else if (this.isMounted()) {
 
           this.setState({
+            loading: false,
             user: user,
             userMetrics: user.OI,
             graphData: user.graphData
@@ -119,6 +121,11 @@ var PortfolioView = React.createClass({
   render: function() {
     var GridTiles = this.state.user ? this.renderGridTiles() : null;
     var Graph = this.state.graphData && this.state.userMetrics ? this.renderGraph() : null;
+    
+    // Show spinner until Ajax request returns.
+    if (this.state.loading) {
+      return <Spinner />
+    }
 
     return (
       <div className="investmentView">

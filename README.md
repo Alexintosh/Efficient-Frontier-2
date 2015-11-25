@@ -16,4 +16,9 @@ Navigate to cd <project folder>/server/ and run the command
 nodemon server.js
 ```
 
+Wrap for production by running
+```
+gulp prod
+```
+
 Access the app on localhost:8080
