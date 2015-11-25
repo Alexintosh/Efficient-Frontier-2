@@ -155,6 +155,15 @@
                           COMPONENT BODY
 **********************************************************************/</span>
 <span class="hljs-keyword">var</span> surveyOptions = React.createClass({
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    q1Label: React.PropTypes.string.isRequired,
+    q2Label: React.PropTypes.string.isRequired,
+    q3Label: React.PropTypes.string.isRequired,
+    q4Label: React.PropTypes.string.isRequired,
+    marginBottom: React.PropTypes.number
+  },
+  
   getDefaultProps: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> {
       marginBottom: <span class="hljs-number">16</span>

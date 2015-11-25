@@ -13,7 +13,7 @@ npm start
 Run the node server locally and serve the client:
 Navigate to cd <project folder>/server/ and run the command
 ```
-node server.js
+nodemon server.js
 ```
 
-Access the app on localhost:5000
+Access the app on localhost:8080

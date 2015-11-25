@@ -147,8 +147,6 @@
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
 <span class="hljs-keyword">var</span> ReactDOM = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react-dom'</span>);
 <span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
-<span class="hljs-keyword">var</span> $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
-<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>);
 <span class="hljs-keyword">var</span> MetricDescriptions = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../imports/metricdescriptions'</span>);
 
 <span class="hljs-comment">/*----------------------REACT COMPONENTS-----------------------------*/</span>
@@ -162,7 +160,14 @@
 <span class="hljs-comment">/*********************************************************************
                           COMPONENT BODY
 **********************************************************************/</span>
+
 <span class="hljs-keyword">var</span> PortfolioView = React.createClass({
+  propTypes: {
+    heading: React.PropTypes.string.isRequired,
+    ticker: React.PropTypes.string.isRequired,
+    user: React.PropTypes.object.isRequired
+  },
+
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> {
       user: <span class="hljs-literal">null</span>,
@@ -173,30 +178,46 @@
   },
 
   componentDidMount: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> userData = <span class="hljs-keyword">this</span>.props.user;
-    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">var</span> userData = <span class="hljs-keyword">this</span>.props.user;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Make request for a user’s portfolio data.</p>
 
-    $.ajax({
-      type: <span class="hljs-string">'POST'</span>,
-      url: <span class="hljs-string">'http://localhost:5000/portfolio'</span>,
-      contentType: <span class="hljs-string">'application/json'</span>,
-      data: <span class="hljs-built_in">JSON</span>.stringify(userData),
-      success: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> user.redirect == <span class="hljs-string">'string'</span>) {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+    xhr.open(<span class="hljs-string">'POST'</span>, <span class="hljs-string">'http://localhost:5000/portfolio'</span>);
+    xhr.setRequestHeader(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'application/json'</span>);
+
+    xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (xhr.status &gt;= <span class="hljs-number">200</span> &amp;&amp; xhr.status &lt; <span class="hljs-number">400</span>) {
+        <span class="hljs-keyword">var</span> user = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+        <span class="hljs-keyword">if</span> (user.redirect) {
           <span class="hljs-built_in">window</span>.location = user.redirect;
           <span class="hljs-keyword">return</span>;
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (self.isMounted()) {
-          self.setState({
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isMounted()) {
+
+          <span class="hljs-keyword">this</span>.setState({
             user: user,
             userMetrics: user.OI,
             graphData: user.graphData
           });
+
         }
-      },
-      error: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
-        <span class="hljs-built_in">console</span>.error(err);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">'There was an error in the request.'</span>);
       }
-    });
+    }.bind(<span class="hljs-keyword">this</span>);
+
+    xhr.send(<span class="hljs-built_in">JSON</span>.stringify(userData));
   },
 
   handleDescription: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">metric</span>) </span>{
@@ -206,7 +227,7 @@
 
   handleFormat: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, metric</span>) </span>{
     <span class="hljs-keyword">if</span> (metric === <span class="hljs-string">'riskAversion'</span>) { <span class="hljs-keyword">return</span> value; }
-
+    
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.round(<span class="hljs-number">100</span> * value.toFixed(<span class="hljs-number">2</span>)) + <span class="hljs-string">'%'</span>;
   },
 
@@ -216,9 +237,7 @@
       <span class="hljs-keyword">return</span> (
           <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">GridTile</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"tile"</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{++id}</span> &gt;</span>
 
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"gridTitle"</span>&gt;</span>
-              {this.state.MetricDescriptions[metric].title}
-            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"gridTitle"</span>&gt;</span> {this.state.MetricDescriptions[metric].title} <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
             <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"iconInfo"</span>&gt;</span>
               <span class="hljs-tag">&lt;<span class="hljs-title">IconButton</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleDescription.bind(null,</span> <span class="hljs-attribute">metric</span>)}&gt;</span>
@@ -226,9 +245,7 @@
               <span class="hljs-tag">&lt;/<span class="hljs-title">IconButton</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
-            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"metric animated flipInX"</span>&gt;</span>
-              {this.handleFormat(value, metric)}
-            <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"metric animated flipInX"</span>&gt;</span> {this.handleFormat(value, metric)} <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
 
           <span class="hljs-tag">&lt;/<span class="hljs-title">GridTile</span>&gt;</span>
         )</span>;

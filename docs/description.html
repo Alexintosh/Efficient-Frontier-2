@@ -155,11 +155,11 @@
 <span class="hljs-comment">/*********************************************************************
                           COMPONENT BODY
 **********************************************************************/</span>
-<span class="hljs-keyword">var</span> propTypes = {
-  ticker: React.PropTypes.string.isRequired
-};
-
 <span class="hljs-keyword">var</span> Description = React.createClass({
+  propTypes: {
+    ticker: React.PropTypes.string.isRequired
+  },
+
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> MetricDescriptions(<span class="hljs-keyword">this</span>.props.ticker);
   },</pre></div></div>
@@ -231,8 +231,6 @@
       );
   }
 });
-
-Description.propTypes = propTypes;
 
 module.exports = Description;</pre></div></div>
             
